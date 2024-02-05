@@ -3,7 +3,7 @@ version: '3.9'
 services:
   valheim-server-discord-bot:
     container_name: valheim-server-discord-bot
-    image: ghcr.io/floryn08/valheim-server-discord-bot:latest
+    image: ghcr.io/floryn08/valheim-server-discord-bot:master
     environment:
       DISCORD_TOKEN: <value>
       DISCORD_CLIENT_ID: <value>

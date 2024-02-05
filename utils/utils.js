@@ -56,7 +56,7 @@ exports.stop = async (interaction) => {
 
         if (response.status == 204) {
             await interaction.followUp('Container stopped successfully!')
-            console.log('Container started successfully!');
+            console.log('Container stopped successfully!');
         } else {
             console.log(response.status)
         }
