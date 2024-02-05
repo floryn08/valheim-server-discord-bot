@@ -5,11 +5,11 @@ services:
     container_name: valheim-server-discord-bot
     image: ghcr.io/floryn08/valheim-server-discord-bot:master
     environment:
-      DISCORD_TOKEN: <value>
-      DISCORD_CLIENT_ID: <value>
-      GUILD_ID: <value>
-      PORTAINER_URL: <value>
-      PORTAINER_API_KEY: <value>
+      DISCORD_TOKEN: ${DISCORD_TOKEN}
+      DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
+      GUILD_ID: ${GUILD_ID}
+      PORTAINER_URL: ${PORTAINER_URL}
+      PORTAINER_API_KEY: ${PORTAINER_API_KEY}
     volumes:
-      - /home/flow/appdata/game-servers/valheim-server-discord-bot:/app/config:ro
+      - /home/flow/appdata/game-servers/valheim-server-discord-bot:/app/config.js:ro
     restart: unless-stopped
