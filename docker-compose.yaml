@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  valheim-server-discord-bot:
+    container_name: valheim-server-discord-bot
+    image: ghcr.io/floryn08/valheim-server-discord-bot:latest
+    environment:
+      DISCORD_TOKEN: <value>
+      DISCORD_CLIENT_ID: <value>
+      GUILD_ID: <value>
+      PORTAINER_URL: <value>
+      PORTAINER_API_KEY: <value>
+    volumes:
+      - /home/flow/appdata/game-servers/valheim-server-discord-bot:/app/config:ro
+    restart: unless-stopped
