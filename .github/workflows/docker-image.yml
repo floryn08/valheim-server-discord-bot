@@ -1,8 +1,12 @@
-name: Docker Image CI
+name: Build and publish docker image
 
 on:
-  push:
-    branches: [ "test" ]
+  workflow_dispatch:
+  release:
+    types: 
+      - published
+  # push:
+  #   branches: [ "master" ]
 
 env:
   REGISTRY: ghcr.io
