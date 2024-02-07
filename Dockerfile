@@ -9,4 +9,6 @@ RUN npm install
 # Copy remaining project files
 COPY . .
 
-CMD ["node", "index.js"]
+RUN chmod +x entrypoint.sh
+
+CMD ["/bin/bash", "entrypoint.sh"]

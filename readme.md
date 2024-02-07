@@ -8,8 +8,19 @@ The bot registers 3 slash commands:
 - /stop
 - /status
 
+## Prerequisites
+You need to have Valheim Server container deployed in a stack in Portainer.
+
 ## How to run
+
+### With docker compose
 1. Invite your bot on a server by using the OAuth2 URL Generator from here: https://discord.com/developers/applications 
 2. Copy `.env.example` to `.env` and update the variables with yours
 3. Run `docker compose up -d` to start the bot
-4. Run `deploy-commands.js` to register commands on a discord server indicated by `GUILD_ID`
+
+### With Portainer 
+You can deploy this bot as a container in a stack alongside the Valheim Server.
+
+1. Copy the service from the docker-compose.yaml file into your stack
+2. Add environment variables to your stack to match what is required by the container
+3. Redeploy your stack 
