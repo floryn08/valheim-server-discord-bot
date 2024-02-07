@@ -13,5 +13,5 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           package-type: 'docker'
-          package-name: ${{ github.repository }}
+          package-name: 'valheim-server-discord-bot'
           min-versions-to-keep: 3
