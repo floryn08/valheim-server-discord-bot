@@ -12,6 +12,6 @@ jobs:
       - uses: actions/delete-package-versions@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          package-type: 'docker'
+          package-type: 'container'
           package-name: 'valheim-server-discord-bot'
           min-versions-to-keep: 3
