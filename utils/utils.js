@@ -17,6 +17,32 @@ exports.start = async (interaction) => {
         }
     }).then(async function (response) {
 
+        const stream = await axios({
+            url: `${config.portainerEndpoint}/api/endpoints/2/docker/containers/${config.containerName}/logs`,
+            method: 'POST',
+            responseType: 'stream',
+            params: {
+                stdout: true
+            },
+            headers: {
+                "X-API-Key": `${config.portainerApiKey}`
+            }
+        });
+
+        stream.on('data', (chunk) => {
+            // Convert the chunk to a string
+            let data = chunk.toString();
+            // Check if the data contains the string
+            let index = data.indexOf('Session "TheBatCave" with join code');
+            if (index !== -1) {
+                // Get the next word after the string
+                let words = data.slice(index).split(' ');
+                joinCode = words[5]; // The next word is at index 5
+                console.log('Join code is', joinCode);
+            }
+        });
+
+
         if (response.status == 204) {
             await interaction.followUp('Container started successfully!')
             console.log('Container started successfully!');
