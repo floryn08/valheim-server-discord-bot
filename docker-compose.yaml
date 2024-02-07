@@ -10,6 +10,10 @@ services:
       GUILD_ID: ${GUILD_ID}
       PORTAINER_URL: ${PORTAINER_URL}
       PORTAINER_API_KEY: ${PORTAINER_API_KEY}
+      CONTAINER_NAME: ${CONTAINER_NAME}
+      SERVER_NAME: ${SERVER_NAME}
+      JOIN_CODE_LOOP_COUNT: ${JOIN_CODE_LOOP_COUNT}
+      JOIN_CODE_LOOP_TIMEOUT_MILLIS: ${JOIN_CODE_LOOP_TIMEOUT_MILLIS}
     volumes:
       - /home/flow/appdata/game-servers/valheim-server-discord-bot:/app/config.js:ro
     restart: unless-stopped

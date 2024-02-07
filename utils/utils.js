@@ -15,46 +15,55 @@ exports.start = async (interaction) => {
         headers: {
             "X-API-Key": `${config.portainerApiKey}`
         }
-    }).then(async function (response) {
+    }).then(async function (startResponse) {
 
-        const stream = await axios({
-            url: `${config.portainerEndpoint}/api/endpoints/2/docker/containers/${config.containerName}/logs`,
-            method: 'POST',
-            responseType: 'stream',
-            params: {
-                stdout: true
-            },
-            headers: {
-                "X-API-Key": `${config.portainerApiKey}`
+        // wait after starting the container because it may have some old logs 
+        // and the old join code may be returned, so we wait a bit for the new container 
+        // to log some new lines and then start the check loop
+        await new Promise(resolve => setTimeout(resolve, config.joinCodeLoopTimeoutMillis));
+
+        for (let i = 0; i < config.joinCodeLoopCount; i++) {
+
+            let joinCode = "";
+
+            await axios({
+                url: `${config.portainerEndpoint}/api/endpoints/2/docker/containers/${config.containerName}/logs`,
+                method: 'GET',
+                params: {
+                    stdout: true,
+                    tail: 10 // last 10 lines of the log
+                },
+                headers: {
+                    "X-API-Key": `${config.portainerApiKey}`
+                }
+            }).then(function (logsResponse) {
+                let data = logsResponse.data.toString();
+                // Check if the data contains the string
+                let index = data.indexOf(`Session "${config.serverName}" with join code`);
+                if (index !== -1) {
+                    // Get the next word after the string
+                    let words = data.slice(index).split(' ');
+                    joinCode = words[5]; // The next word is at index 5
+                }
+
+                console.log("Join code not present yet, retryin...");
+            });
+
+            if (startResponse.status == 204 && joinCode != "") {
+                await interaction.followUp(`Server started successfully! Join code is ${joinCode}`)
+                console.log('Server started successfully! Join code is', joinCode);
+
+                break;
             }
-        });
 
-        stream.on('data', (chunk) => {
-            // Convert the chunk to a string
-            let data = chunk.toString();
-            // Check if the data contains the string
-            let index = data.indexOf('Session "TheBatCave" with join code');
-            if (index !== -1) {
-                // Get the next word after the string
-                let words = data.slice(index).split(' ');
-                joinCode = words[5]; // The next word is at index 5
-                console.log('Join code is', joinCode);
-            }
-        });
-
-
-        if (response.status == 204) {
-            await interaction.followUp('Container started successfully!')
-            console.log('Container started successfully!');
-        } else {
-            console.log(response.status)
+            await new Promise(resolve => setTimeout(resolve, config.joinCodeLoopTimeoutMillis));
         }
 
     }).catch(async function (error) {
 
         if (error.response.status == 304) {
-            await interaction.followUp('Container already started!')
-            console.log('Container already started!');
+            await interaction.followUp('Server already started!')
+            console.log('Server already started!');
         } else {
             await interaction.followUp(`Failed to start container. Error: ${error}`)
             console.log(`Failed to start container. Error: ${error}`)
@@ -81,19 +90,19 @@ exports.stop = async (interaction) => {
     }).then(async function (response) {
 
         if (response.status == 204) {
-            await interaction.followUp('Container stopped successfully!')
-            console.log('Container stopped successfully!');
+            await interaction.followUp('Server stopped successfully!')
+            console.log('Server stopped successfully!');
         } else {
             console.log(response.status)
         }
 
     }).catch(async function (error) {
         if (error.response.status == 304) {
-            await interaction.followUp('Container already stopped!')
-            console.log('Container already stopped!');
+            await interaction.followUp('Server already stopped!')
+            console.log('Server already stopped!');
         } else {
-            await interaction.followUp(`Failed to stop container. Error: ${error}`)
-            console.log(`Failed to stop container. Error: ${error}`)
+            await interaction.followUp(`Failed to stop server. Error: ${error}`)
+            console.log(`Failed to stop server. Error: ${error}`)
         }
     });
 }
