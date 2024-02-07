@@ -1,0 +1,17 @@
+name: Cleanup Docker Images 
+
+on:
+  workflow_dispatch:
+  schedule: # Run weekly
+    - cron: '0 0 * * 0'  # 00:00 UTC
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/delete-package-versions@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          package-type: 'docker'
+          package-name: ${{ github.repository }}
+          min-versions-to-keep: 3
