@@ -3,7 +3,7 @@ version: '3.9'
 services:
   valheim-server-discord-bot:
     container_name: valheim-server-discord-bot
-    image: ghcr.io/floryn08/valheim-server-discord-bot:master
+    image: ghcr.io/floryn08/valheim-server-discord-bot:latest
     environment:
       DISCORD_TOKEN: ${DISCORD_TOKEN}
       DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
@@ -15,5 +15,5 @@ services:
       JOIN_CODE_LOOP_COUNT: ${JOIN_CODE_LOOP_COUNT}
       JOIN_CODE_LOOP_TIMEOUT_MILLIS: ${JOIN_CODE_LOOP_TIMEOUT_MILLIS}
     volumes:
-      - /home/flow/appdata/game-servers/valheim-server-discord-bot:/app/config.js:ro
+      - /home/your-user/valheim-server-discord-bot:/app/config.js:ro
     restart: unless-stopped
