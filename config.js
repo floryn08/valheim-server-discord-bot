@@ -9,5 +9,6 @@ exports.config = {
     "containerName": process.env.CONTAINER_NAME,
     "serverName": process.env.SERVER_NAME,
     "joinCodeLoopCount": process.env.JOIN_CODE_LOOP_COUNT,
-    "joinCodeLoopTimeoutMillis": process.env.JOIN_CODE_LOOP_TIMEOUT_MILLIS
+    "joinCodeLoopTimeoutMillis": process.env.JOIN_CODE_LOOP_TIMEOUT_MILLIS,
+    "argoPass": process.env.ARGO_PASS
 }

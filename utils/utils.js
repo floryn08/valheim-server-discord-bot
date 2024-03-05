@@ -1,5 +1,6 @@
 const axios = require('axios');
 const { config } = require("../config")
+const exec = util.promisify(require('child_process').exec);
 
 exports.start = async (interaction) => {
     await interaction.reply('Starting server...')
@@ -111,21 +112,22 @@ exports.status = async (interaction) => {
     await interaction.reply('Getting server status...')
     console.log('Getting server status...');
 
-    if (!config.portainerEndpoint || !config.portainerApiKey) {
-        throw new Error('Please make sure you have set up the Portainer API token in your code.');
-    }
+    const { stdout, stderr } = await exec(`argocd login 192.168.0.150:8090 --username admin --password ${config.argoPass}`);
 
-    await axios({
-        url: `${config.portainerEndpoint}/api/endpoints/2/docker/containers/${config.containerName}/json`,
-        method: 'GET',
-        headers: {
-            "X-API-Key": `${config.portainerApiKey}`
-        }
-    }).then(async function (response) {
-        await interaction.followUp(`Server status is: ${response.data.State.Status}`)
-        console.log(`Server status is: ${response.data.State.Status}`);
-    }).catch(async function (error) {
-        await interaction.followUp(`Failed to get server status. Error Code: ${error}`)
-        throw new Error(`Failed to get server status. Error Code: ${error}`);
-    });
+    console.log('stdout:', stdout);
+    console.log('stderr:', stderr);
+
+    // await axios({
+    //     url: `${config.portainerEndpoint}/api/endpoints/2/docker/containers/${config.containerName}/json`,
+    //     method: 'GET',
+    //     headers: {
+    //         "X-API-Key": `${config.portainerApiKey}`
+    //     }
+    // }).then(async function (response) {
+    //     await interaction.followUp(`Server status is: ${response.data.State.Status}`)
+    //     console.log(`Server status is: ${response.data.State.Status}`);
+    // }).catch(async function (error) {
+    //     await interaction.followUp(`Failed to get server status. Error Code: ${error}`)
+    //     throw new Error(`Failed to get server status. Error Code: ${error}`);
+    // });
 }
