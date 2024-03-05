@@ -1,5 +1,6 @@
 const axios = require('axios');
 const { config } = require("../config")
+const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
 exports.start = async (interaction) => {
