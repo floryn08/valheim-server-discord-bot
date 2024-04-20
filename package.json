@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@kubernetes/client-node": "^0.20.0",
     "axios": "^1.6.7",
     "discord.js": "^14.14.1",
     "dotenv": "^16.4.1"
