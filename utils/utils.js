@@ -68,7 +68,7 @@ exports.start = async (interaction) => {
             true,
             false,
             undefined,
-            15
+            10
           )
           .then((log) => {
             let data = log.body;
