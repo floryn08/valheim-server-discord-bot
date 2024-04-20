@@ -16,7 +16,7 @@ const kubeconfig = {
 };
 
 // Create a KubeClient instance
-const client = new KubeClient(kubeconfig);
+// const client = new KubeClient(kubeconfig);
 
 // Define the deployment name and namespace
 const deploymentName = 'valheim';
@@ -143,22 +143,22 @@ exports.status = async (interaction) => {
   console.log("Getting server status...");
 
   // Get the current replicas for the deployment
-  await client.apis/apps.v1.namespaces[namespace].deployments.get(deploymentName).then((deployment) => {
-    const currentReplicas = deployment.spec.replicas;
-    console.log(`Current replicas: ${currentReplicas}`);
+  // await client.apis/apps.v1.namespaces[namespace].deployments.get(deploymentName).then((deployment) => {
+  //   const currentReplicas = deployment.spec.replicas;
+  //   console.log(`Current replicas: ${currentReplicas}`);
 
-    // // Decrease the replicas to 0
-    // client.apis.apps.v1.namespaces[namespace].deployments.patch(deploymentName, {
-    //   spec: { replicas: 0 },
-    // }).then((response) => {
-    //   console.log('Successfully patched deployment');
-    //   fs.writeFileSync('deployment-patched.json', JSON.stringify(response));
-    // }).catch((error) => {
-    //   console.error(error);
-    // });
-  }).catch((error) => {
-    console.error(error);
-  });
+  //   // // Decrease the replicas to 0
+  //   // client.apis.apps.v1.namespaces[namespace].deployments.patch(deploymentName, {
+  //   //   spec: { replicas: 0 },
+  //   // }).then((response) => {
+  //   //   console.log('Successfully patched deployment');
+  //   //   fs.writeFileSync('deployment-patched.json', JSON.stringify(response));
+  //   // }).catch((error) => {
+  //   //   console.error(error);
+  //   // });
+  // }).catch((error) => {
+  //   console.error(error);
+  // });
 
   // await axios({
   //     url: `${config.portainerEndpoint}/api/endpoints/2/docker/containers/${config.containerName}/json`,
