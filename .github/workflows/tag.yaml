@@ -28,8 +28,13 @@ jobs:
       - name: Display SemVer
         run: |
           echo "SemVer: $GITVERSION_SEMVER" && echo "$version" && echo "$major.$minor.$patch"
-      - name: Create git tag
-        run: |
-          git tag $GITVERSION_SEMVER
-      - name: Push git tag
-        run: git push origin $GITVERSION_SEMVER
+      - name: Create tag
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/$GITVERSION_SEMVER',
+              sha: context.sha
+            })
