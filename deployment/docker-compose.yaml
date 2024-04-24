@@ -14,6 +14,4 @@ services:
       SERVER_NAME: ${SERVER_NAME}
       JOIN_CODE_LOOP_COUNT: ${JOIN_CODE_LOOP_COUNT}
       JOIN_CODE_LOOP_TIMEOUT_MILLIS: ${JOIN_CODE_LOOP_TIMEOUT_MILLIS}
-    volumes:
-      - /home/your-user/valheim-server-discord-bot:/app/config.js:ro
     restart: unless-stopped
