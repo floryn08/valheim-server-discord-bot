@@ -16,7 +16,17 @@ jobs:
       - uses: actions/checkout@v4.1.1
         with:
           fetch-depth: '0'
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.69.0 # Don't use @master or @v1 unless you're happy to test the latest version
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v1.1.1
+        with:
+          versionSpec: '5.x'
+      - name: Determine Version
+        uses: gittools/actions/gitversion/execute@v1.1.1
+      - name: Display SemVer
+        run: |
+          echo "SemVer: $GITVERSION_SEMVER" && echo "$version" && echo "$major.$minor.$patch"
+      - name: Create git tag
+        run: |
+          git tag $GITVERSION_SEMVER
+      - name: Push git tag
+        run: git push origin $GITVERSION_SEMVER
