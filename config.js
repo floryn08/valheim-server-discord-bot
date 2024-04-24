@@ -3,7 +3,7 @@ require("dotenv").config();
 exports.config = {
   token: process.env.DISCORD_TOKEN,
   clientId: process.env.DISCORD_CLIENT_ID,
-  guildId: process.env.GUILD_ID,
+  guildIds: process.env.GUILD_IDS,
   deploymentName: process.env.DEPLOYMENT_NAME,
   namespace: process.env.NAMESPACE,
   serverName: process.env.SERVER_NAME,

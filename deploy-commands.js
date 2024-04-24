@@ -32,13 +32,19 @@ const rest = new REST().setToken(config.token);
 	try {
 		console.log(`Started refreshing ${commands.length} application (/) commands.`);
 
-		// The put method is used to fully refresh all commands in the guild with the current set
-		const data = await rest.put(
-			Routes.applicationGuildCommands(config.clientId, config.guildId),
-			{ body: commands },
-		);
+    const guildIds = config.guildIds.split(",");
 
-		console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+    guildIds.forEach(async guildId => {
+      // The put method is used to fully refresh all commands in the guild with the current set
+      const data = await rest.put(
+        Routes.applicationGuildCommands(config.clientId, guildId),
+        { body: commands },
+      );
+
+		  console.log(`Successfully reloaded ${data.length} application (/) commands for guildId: ${guildId}`);
+    });
+
+
 	} catch (error) {
 		// And of course, make sure you catch and log any errors!
 		console.error(error);
