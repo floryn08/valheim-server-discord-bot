@@ -1,12 +1,10 @@
 name: Tag
 
 on:
+  workflow_dispatch:
   pull_request:
     types:
       - closed
-    branches:
-      - master
-  push:
     branches:
       - master
 
