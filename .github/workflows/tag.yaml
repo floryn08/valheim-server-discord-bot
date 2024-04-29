@@ -59,9 +59,3 @@ jobs:
           git tag ${{env.semVer}}
           git push
           git push origin tag ${{env.semVer}}
-
-
-      - name: Create tag
-        run: |
-          git fetch
-          git pull
