@@ -55,7 +55,7 @@ jobs:
         run: |
           git add .
           git commit -m "ci: version bump ${{env.semVer}}"
-          git tag ${{env.semVer}}"
+          git tag ${{env.semVer}}
           git push
           git push origin ${{env.semVer}} --tags
 
