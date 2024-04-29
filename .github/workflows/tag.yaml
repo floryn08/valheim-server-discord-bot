@@ -28,6 +28,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4.0.2
         with:
+          cache: 'npm'
           node-version: "20"
 
       - name: Install GitVersion
@@ -57,7 +58,7 @@ jobs:
           git commit -m "ci: version bump ${{env.semVer}}"
           git tag ${{env.semVer}}
           git push
-          git push origin ${{env.semVer}} --tags
+          git push origin tag ${{env.semVer}}
 
 
       - name: Create tag
