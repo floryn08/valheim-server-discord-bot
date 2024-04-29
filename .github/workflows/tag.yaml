@@ -51,15 +51,16 @@ jobs:
         run: |
           sed -i "s/^version:.*/version: ${{env.semVer}}/" deployment/helm/Chart.yaml
 
-      - name: Push version updates
+      - name: Push version updates and create tags
         run: |
           git add .
           git commit -m "ci: version bump ${{env.semVer}}"
+          git tag ${{env.semVer}}"
           git push
+          git push origin ${{env.semVer}} --tags
+
 
       - name: Create tag
         run: |
           git fetch
           git pull
-          git tag ${{env.semVer}}"
-          git push origin ${{env.semVer}}
