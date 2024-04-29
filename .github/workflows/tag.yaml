@@ -51,7 +51,6 @@ jobs:
       - name: Bump helm chart
         run: |
           sed -i "s/^version:.*/version: ${{env.semVer}}/" deployment/helm/Chart.yaml
-          sed -i "s/:[0-9]\+\.[0-9]\+\.[0-9]\+/:${{env.semVer}}/" deployment/helm/values.yaml
 
       - name: Push version updates and create tags
         run: |
