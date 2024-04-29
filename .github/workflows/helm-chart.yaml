@@ -1,4 +1,4 @@
-name: Release Charts
+name: Release Chart
 
 on:
   workflow_dispatch:
@@ -33,5 +33,6 @@ jobs:
         uses: helm/chart-releaser-action@v1.6.0
         with:
           charts_dir: ./deployment
+          mark_as_latest: false
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
