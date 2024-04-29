@@ -15,7 +15,7 @@ jobs:
       contents: write
     steps:
       - name: Initial checkout
-        uses: actions/checkout@v4.1.4
+        uses: actions/checkout@v4.1.3
         with:
           fetch-depth: "0"
           token: ${{secrets.ACCESS_TOKEN}}
@@ -28,7 +28,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4.0.2
         with:
-          cache: 'npm'
+          cache: "npm"
           node-version: "20"
 
       - name: Install GitVersion
@@ -50,7 +50,8 @@ jobs:
 
       - name: Bump helm chart
         run: |
-          sed -i "s/^appVersion:.*/appVersion: ${{env.semVer}}/" deployment/helm/Chart.yaml
+          sed -i "s/^version:.*/version: ${{env.semVer}}/" deployment/helm/Chart.yaml
+          sed -i "s/:[0-9]\+\.[0-9]\+\.[0-9]\+/:${{env.semVer}}/" deployment/helm/values.yaml
 
       - name: Push version updates and create tags
         run: |
