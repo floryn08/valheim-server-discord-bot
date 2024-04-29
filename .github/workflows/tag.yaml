@@ -44,7 +44,7 @@ jobs:
 
       - name: Bump package.json
         run: |
-          npm version ${{env.semVer}}
+          npm version ${{env.semVer}} --allow-same-version
           npm ci
 
       - name: Bump helm chart
