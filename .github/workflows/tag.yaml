@@ -24,7 +24,6 @@ jobs:
         run: |
           git config user.email ${{secrets.EMAIL}}
           git config user.name ${{secrets.NAME}}
-          git config commit.gpgsign true
 
       - name: Set up Node.js
         uses: actions/setup-node@v4.0.2
@@ -55,24 +54,13 @@ jobs:
       - name: Push version updates
         run: |
           git add .
-          git commit -S -m "ci: version bump ${{env.semVer}}"
+          git commit -m "ci: version bump ${{env.semVer}}"
           git tag -s ${{env.semVer}}
           git push
 
       - name: Create tag
-        run: | 
+        run: |
           git fetch
           git pull
-          git tag -s -a ${{env.semVer}}
+          git tag -a ${{env.semVer}}
           git push origin ${{env.semVer}}
-
-      # - name: Create tag
-      #   uses: actions/github-script@v7.0.1
-      #   with:
-      #     script: |
-      #       github.rest.git.createRef({
-      #         owner: context.repo.owner,
-      #         repo: context.repo.repo,
-      #         ref: 'refs/tags/${{env.semVer}}',
-      #         sha: context.sha
-      #       })
