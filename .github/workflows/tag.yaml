@@ -61,5 +61,5 @@ jobs:
         run: |
           git fetch
           git pull
-          git tag -a ${{env.semVer}}
+          git tag ${{env.semVer}}"
           git push origin ${{env.semVer}}
