@@ -47,6 +47,11 @@ jobs:
         run: | 
           sed -i "s/^version:.*/version: ${{env.semVer}}/" deployment/helm/Chart.yaml
 
+      - name: Push version updates
+        run: |
+          git commit -m "ci: version bump ${{env.semVer}}"
+          git push
+
       - name: Create tag
         uses: actions/github-script@v7.0.1
         with:
