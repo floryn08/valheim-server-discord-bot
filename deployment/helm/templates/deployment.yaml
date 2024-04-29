@@ -21,13 +21,13 @@ spec:
       - name: {{ .Release.Name }}
         image: {{ .Values.discordBotImage }}
         imagePullPolicy: Always
-        {{- if .values.vault.enabled -}}
+        {{- if .Values.vault.enabled }}
         envFrom:
         - secretRef:
             name: {{ .Release.Name }}
-        {{- else -}}
+        {{- else }}
         envFrom:
         - configMapRef:
             name: {{ .Release.Name }}
-        {{- end -}}
+        {{- end }}
 
