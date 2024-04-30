@@ -10,7 +10,9 @@ The bot registers 3 slash commands:
 
 
 ## TODO
-- [ ] add multiple guilds command refresh
+- [x] add multiple guilds command refresh
+- [x] helm chart release
+- [ ] improve release workflow
 - [ ] add back portainer support alongside kubernetes
 - [ ] add odin support
 
