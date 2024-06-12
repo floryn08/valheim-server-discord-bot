@@ -15,7 +15,7 @@ jobs:
       contents: write
     steps:
       - name: Initial checkout
-        uses: actions/checkout@v4.1.6
+        uses: actions/checkout@v4.1.7
         with:
           fetch-depth: "0"
           token: ${{secrets.ACCESS_TOKEN}}
