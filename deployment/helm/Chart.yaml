@@ -4,5 +4,5 @@ description: A Helm chart for Kubernetes
 
 type: application
 
-appVersion: 0.7.16
-version: 0.7.16
+appVersion: 0.7.17
+version: 0.7.17
