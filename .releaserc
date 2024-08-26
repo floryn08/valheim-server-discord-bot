@@ -2,7 +2,7 @@
   "branches": [
     "main",
     {
-      "name": "dev-#46-fix-cocogitto",
+      "name": "dev-**",
       "prerelease": "dev"
     }
   ],
