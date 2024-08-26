@@ -27,6 +27,7 @@ jobs:
       - name: Semver release
         uses: oknozor/cocogitto-action@v3.8
         with:
+          check: false
           release: true
           git-user: "$GITHUB_ACTOR"
           git-user-email: "$GITHUB_ACTOR@users.noreply.github.com"
