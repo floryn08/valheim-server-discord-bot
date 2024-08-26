@@ -18,11 +18,6 @@ jobs:
         with:
           fetch-depth: "0"
 
-      - name: Configure Git
-        run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-
       - name: Set up Node.js
         uses: actions/setup-node@v4.0.3
         with:
@@ -36,22 +31,3 @@ jobs:
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-
-      - name: Bump package.json
-        run: |
-          npm version ${nextRelease.version} --allow-same-version --git-tag-version false
-          npm ci
-  
-      - name: Bump helm chart
-        run: |
-          sed -i "s/^version:.*/version: ${nextRelease.version}/" deployment/helm/Chart.yaml
-          sed -i "s/^appVersion:.*/appVersion: ${nextRelease.version}/" deployment/helm/Chart.yaml
-          sed -i "s/:[0-9]\+\.[0-9]\+\.[0-9]\+/:${nextRelease.version}/" deployment/helm/values.yaml
-
-      - name: Push version updates and create tag
-        run: |
-          git add .
-          git commit -m "ci: version bump ${nextRelease.version} [skip ci]"
-          git tag ${nextRelease.version}
-          git push
-          git push origin tag ${nextRelease.version}

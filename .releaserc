@@ -16,6 +16,18 @@
         "npmPublish": false
       }
     ],
+    [
+      "@semantic-release/exec",
+      {
+        "verifyReleaseCmd": ".github/ci-helpers/update_versions.sh ${nextRelease.version}"
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": ["package.json", "deployment/helm/Chart.yaml"]
+      }
+    ],
     "@semantic-release/github"
   ]
 }
