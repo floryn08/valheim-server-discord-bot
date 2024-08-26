@@ -16,12 +16,6 @@
         "npmPublish": false
       }
     ],
-    [
-      "@semantic-release/git",
-      {
-        "assets": ["package.json", "deployment/helm/Chart.yaml"]
-      }
-    ],
     "@semantic-release/github"
   ]
 }
