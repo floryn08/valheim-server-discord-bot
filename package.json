@@ -1,6 +1,6 @@
 {
   "name": "valheim-server-discord-bot",
-  "version": "0.7.21",
+  "version": "1.0.0-dev.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -12,5 +12,11 @@
     "@kubernetes/client-node": "^0.21.0",
     "discord.js": "^14.14.1",
     "dotenv": "^16.4.1"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "semantic-release": "^24.1.0"
   }
 }
