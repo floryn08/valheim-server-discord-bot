@@ -2,8 +2,8 @@
   "branches": [
     "main",
     {
-      "name": "dev",
-      "prerelease": "dev-*"
+      "name": "dev-*",
+      "prerelease": "dev"
     }
   ],
   "plugins": [
