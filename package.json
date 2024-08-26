@@ -1,6 +1,6 @@
 {
   "name": "valheim-server-discord-bot",
-  "version": "0.7.21",
+  "version": "1.0.0-dev.1",
   "description": "",
   "main": "index.js",
   "scripts": {
