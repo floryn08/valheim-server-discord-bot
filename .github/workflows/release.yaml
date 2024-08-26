@@ -1,12 +1,11 @@
-name: Create Tag
+name: Create Release
 
 on:
   workflow_dispatch:
-  pull_request:
-    types:
-      - closed
+  push:
     branches:
-      - master
+      - main
+      - dev-*
 
 jobs:
   tag:
@@ -18,12 +17,6 @@ jobs:
         uses: actions/checkout@v4.1.7
         with:
           fetch-depth: "0"
-          token: ${{secrets.ACCESS_TOKEN}}
-
-      - name: Setup Git
-        run: |
-          git config user.email ${{secrets.EMAIL}}
-          git config user.name ${{secrets.NAME}}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4.0.3
@@ -31,17 +24,12 @@ jobs:
           cache: "npm"
           node-version: "20"
 
-      - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v3.0.0
+      - name: Semver release
+        uses: oknozor/cocogitto-action@v3.8
         with:
-          versionSpec: "5.x"
-
-      - name: Determine Version
-        uses: gittools/actions/gitversion/execute@v3.0.0
-
-      - name: Display SemVer
-        run: |
-          echo "SemVer: $semVer" && echo "$major.$minor.$patch"
+          release: true
+          git-user: "$GITHUB_ACTOR"
+          git-user-email: "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Bump package.json
         run: |
@@ -54,10 +42,5 @@ jobs:
           sed -i "s/^appVersion:.*/appVersion: ${{env.semVer}}/" deployment/helm/Chart.yaml
           sed -i "s/:[0-9]\+\.[0-9]\+\.[0-9]\+/:${{env.semVer}}/" deployment/helm/values.yaml
 
-      - name: Push version updates and create tag
-        run: |
-          git add .
-          git commit -m "ci: version bump ${{env.semVer}}"
-          git tag ${{env.semVer}}
-          git push
-          git push origin tag ${{env.semVer}}
+      - name: Print version
+        run: "echo '${{ steps.release.outputs.version }}'"
