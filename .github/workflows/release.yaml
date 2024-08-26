@@ -8,7 +8,7 @@ on:
       - dev-*
 
 jobs:
-  tag:
+  release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -24,24 +24,8 @@ jobs:
           cache: "npm"
           node-version: "20"
 
-      - name: Semver release
-        uses: oknozor/cocogitto-action@v3.8
-        with:
-          check: false
-          release: true
-          git-user: "$GITHUB_ACTOR"
-          git-user-email: "$GITHUB_ACTOR@users.noreply.github.com"
-
-      - name: Bump package.json
-        run: |
-          npm version ${{env.semVer}} --allow-same-version --git-tag-version false
-          npm ci
-
-      - name: Bump helm chart
-        run: |
-          sed -i "s/^version:.*/version: ${{env.semVer}}/" deployment/helm/Chart.yaml
-          sed -i "s/^appVersion:.*/appVersion: ${{env.semVer}}/" deployment/helm/Chart.yaml
-          sed -i "s/:[0-9]\+\.[0-9]\+\.[0-9]\+/:${{env.semVer}}/" deployment/helm/values.yaml
-
-      - name: Print version
-        run: "echo '${{ steps.release.outputs.version }}'"
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Run Semantic Release
+        run: npx semantic-release
