@@ -9,6 +9,7 @@ const namespace = config.namespace;
 
 const kc = new k8s.KubeConfig();
 kc.loadFromDefault();
+kc.clusters[0].skipTLSVerify = true;
 const appsK8sApi = kc.makeApiClient(k8s.AppsV1Api);
 const coreK8sApi = kc.makeApiClient(k8s.CoreV1Api);
 
@@ -17,10 +18,10 @@ exports.start = async (interaction) => {
   console.log("Starting server...");
 
   // find the particular deployment
-  const res = await appsK8sApi.readNamespacedDeployment(
-    deploymentName,
-    namespace
-  );
+  const res = await appsK8sApi.readNamespacedDeployment({
+    name: deploymentName,
+    namespace: namespace,
+  });
   let deployment = res.body;
 
   // edit
@@ -28,7 +29,11 @@ exports.start = async (interaction) => {
 
   // replace
   await appsK8sApi
-    .replaceNamespacedDeployment(deploymentName, namespace, deployment)
+    .replaceNamespacedDeployment({
+      name: deploymentName,
+      namespace: namespace,
+      body: deployment,
+    })
     .then(async function (response) {
       // wait after starting the container because it may have some old logs
       // and the old join code may be returned, so we wait a bit for the new container
@@ -39,37 +44,36 @@ exports.start = async (interaction) => {
         podContainer,
         joinCode = "";
 
-      await coreK8sApi.listNamespacedPod(namespace).then((res) => {
-        res.body.items.forEach((pod) => {
-          if (
-            pod.metadata.labels["app.kubernetes.io/name"] ==
-            config.deploymentName
-          ) {
-            podObj = pod;
-            pod.spec.containers.forEach((container) => {
-              podContainer = container;
-            });
-          }
+      await coreK8sApi
+        .listNamespacedPod({ namespace: namespace })
+        .then((res) => {
+          res.body.items.forEach((pod) => {
+            if (
+              pod.metadata.labels["app.kubernetes.io/name"] ==
+              config.deploymentName
+            ) {
+              podObj = pod;
+              pod.spec.containers.forEach((container) => {
+                podContainer = container;
+              });
+            }
+          });
         });
-      });
 
       console.log("pod: ", podObj.metadata.name);
       console.log("container:", podContainer.name);
 
       for (let i = 0; i < config.joinCodeLoopCount; i++) {
         await coreK8sApi
-          .readNamespacedPodLog(
-            podObj.metadata.name,
-            namespace,
-            podContainer.name,
-            false,
-            undefined,
-            undefined,
-            true,
-            false,
-            undefined,
-            10
-          )
+          .readNamespacedPodLog({
+            name: podObj.metadata.name,
+            namespace: namespace,
+            container: podContainer.name,
+            follow: false,
+            timestamps: true,
+            tailLines: false,
+            sinceSeconds: 10,
+          })
           .then((log) => {
             let data = log.body;
 
@@ -106,21 +110,21 @@ exports.stop = async (interaction) => {
   console.log("Stopping server...");
 
   // find the particular deployment
-  const res = await appsK8sApi.readNamespacedDeployment(
-    deploymentName,
-    namespace
-  );
+  const res = await appsK8sApi.readNamespacedDeployment({
+    name: deploymentName,
+    namespace: namespace,
+  });
   let deployment = res.body;
 
   // edit
   deployment.spec.replicas = 0;
 
   // replace
-  await appsK8sApi.replaceNamespacedDeployment(
-    deploymentName,
-    namespace,
-    deployment
-  );
+  await appsK8sApi.replaceNamespacedDeployment({
+    name: deploymentName,
+    namespace: namespace,
+    body: deployment,
+  });
 
   await interaction.followUp("Server is stopped!");
 };
@@ -130,10 +134,10 @@ exports.status = async (interaction) => {
   console.log("Getting server status...");
 
   // find the particular deployment
-  const res = await appsK8sApi.readNamespacedDeployment(
-    deploymentName,
-    namespace
-  );
+  const res = await appsK8sApi.readNamespacedDeployment({
+    name: deploymentName,
+    namespace: namespace,
+  });
 
   if (res.body.spec.replicas == 0) {
     await interaction.followUp("Server is stopped!");
