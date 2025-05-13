@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@kubernetes/client-node": "^0.21.0",
+    "@kubernetes/client-node": "^1.0.0",
     "discord.js": "^14.14.1",
     "dotenv": "^16.4.1"
   },
