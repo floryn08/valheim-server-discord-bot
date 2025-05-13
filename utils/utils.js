@@ -22,7 +22,7 @@ exports.start = async (interaction) => {
     name: deploymentName,
     namespace: namespace,
   });
-  let deployment = res.body;
+  let deployment = res;
 
   // edit
   deployment.spec.replicas = 1;
@@ -47,7 +47,7 @@ exports.start = async (interaction) => {
       await coreK8sApi
         .listNamespacedPod({ namespace: namespace })
         .then((res) => {
-          res.body.items.forEach((pod) => {
+          res.items.forEach((pod) => {
             if (
               pod.metadata.labels["app.kubernetes.io/name"] ==
               config.deploymentName
@@ -70,12 +70,11 @@ exports.start = async (interaction) => {
             namespace: namespace,
             container: podContainer.name,
             follow: false,
-            timestamps: true,
-            tailLines: false,
-            sinceSeconds: 10,
+            pretty: true,
+            tailLines: 10,
           })
           .then((log) => {
-            let data = log.body;
+            let data = log;
 
             let index = data.indexOf(
               `Session "${config.serverName}" with join code`
@@ -114,7 +113,7 @@ exports.stop = async (interaction) => {
     name: deploymentName,
     namespace: namespace,
   });
-  let deployment = res.body;
+  let deployment = res;
 
   // edit
   deployment.spec.replicas = 0;
@@ -127,6 +126,7 @@ exports.stop = async (interaction) => {
   });
 
   await interaction.followUp("Server is stopped!");
+  console.log("Stopping server...");
 };
 
 exports.status = async (interaction) => {
@@ -139,11 +139,9 @@ exports.status = async (interaction) => {
     namespace: namespace,
   });
 
-  if (res.body.spec.replicas == 0) {
+  if (res.spec.replicas == 0) {
     await interaction.followUp("Server is stopped!");
   } else {
     await interaction.followUp("Server is running!");
   }
 };
-
- 
