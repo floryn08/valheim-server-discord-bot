@@ -5,6 +5,18 @@
     {
       "matchManagers": ["npm"],
       "groupName": "All npm dependencies"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions workflow updates"
+    },
+    {
+      "matchManagers": ["dockerfile"],
+      "groupName": "Dockerfile updates"
+    },
+    {
+      "matchManagers": ["helm"],
+      "groupName": "Helm chart updates"
     }
   ]
 }
