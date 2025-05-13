@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   valheim-discord-bot:
   - apiVersion: v2
+    appVersion: 1.2.0-dev-migrate-to-typescript.1
+    created: "2025-05-13T19:07:14.332704452Z"
+    description: A Helm chart for Kubernetes
+    digest: d09e873e9c0e29df7997c053bf67fa7b3476dd1e417fad5665dcfb84cfc03332
+    name: valheim-discord-bot
+    type: application
+    urls:
+    - https://github.com/floryn08/valheim-server-discord-bot/releases/download/valheim-discord-bot-1.2.0-dev-migrate-to-typescript.1/valheim-discord-bot-1.2.0-dev-migrate-to-typescript.1.tgz
+    version: 1.2.0-dev-migrate-to-typescript.1
+  - apiVersion: v2
     appVersion: 1.2.0-dev.1
     created: "2025-05-13T19:04:52.355180451Z"
     description: A Helm chart for Kubernetes
@@ -176,4 +186,4 @@ entries:
     urls:
     - https://github.com/floryn08/valheim-server-discord-bot/releases/download/valheim-discord-bot-0.1.0/valheim-discord-bot-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-13T19:04:52.355331733Z"
+generated: "2025-05-13T19:07:14.33294959Z"
