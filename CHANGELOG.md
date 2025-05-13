@@ -1,3 +1,13 @@
+# [1.1.0](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.0.3...v1.1.0) (2025-05-13)
+
+
+### Features
+
+* make version update script executable in release workflow ([958a28c](https://github.com/floryn08/valheim-server-discord-bot/commit/958a28cd0b1a18c43b01e2a5ff1b27d6b044c67f))
+* reintroduce version update script for semantic release ([7c06363](https://github.com/floryn08/valheim-server-discord-bot/commit/7c063634b55fc266979fbaa4784353f113b97b5a))
+* **release:** add version update script for semantic release ([c1b256d](https://github.com/floryn08/valheim-server-discord-bot/commit/c1b256dc2fed36944359c70e69ceb8c425480519))
+* restore version update script for semantic release ([2b3fe05](https://github.com/floryn08/valheim-server-discord-bot/commit/2b3fe057737d84036645c1c3a3e9104cff00655f))
+
 ## [1.0.3](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.0.2...v1.0.3) (2025-05-13)
 
 
