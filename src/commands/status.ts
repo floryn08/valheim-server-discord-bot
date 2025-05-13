@@ -1,6 +1,6 @@
 import { Interaction, SlashCommandBuilder } from "discord.js";
 
-const { status }  = require("../../utils/utils.js")
+import { status } from "../utils/utils.js";
 
 module.exports = {
 	data: new SlashCommandBuilder()

@@ -14,7 +14,7 @@ kc.loadFromDefault();
 const appsK8sApi = kc.makeApiClient(k8s.AppsV1Api);
 const coreK8sApi = kc.makeApiClient(k8s.CoreV1Api);
 
-exports.start = async (interaction) => {
+export const start = async (interaction) => {
   await interaction.reply("Starting server...");
   console.log("Starting server...");
 
@@ -103,7 +103,7 @@ exports.start = async (interaction) => {
   await interaction.followUp("Server is running!");
 };
 
-exports.stop = async (interaction) => {
+export const stop = async (interaction) => {
   await interaction.reply("Stopping server...");
   console.log("Stopping server...");
 
@@ -127,7 +127,7 @@ exports.stop = async (interaction) => {
   await interaction.followUp("Server is stopped!");
 };
 
-exports.status = async (interaction) => {
+export const status = async (interaction) => {
   await interaction.reply("Getting server status...");
   console.log("Getting server status...");
 
