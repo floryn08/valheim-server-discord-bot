@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.0.0...v1.0.1) (2025-05-13)
+
+
+### Bug Fixes
+
+* update Helm match manager to use 'helmv3' in renovate configuration ([96536bb](https://github.com/floryn08/valheim-server-discord-bot/commit/96536bbf51ab5f48d6074977ce1c2eab0fa8ba8b))
+
 # 1.0.0 (2025-05-13)
 
 
