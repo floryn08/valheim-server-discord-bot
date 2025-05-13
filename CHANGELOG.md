@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.1.3...v1.1.4) (2025-05-13)
+
+
+### Bug Fixes
+
+* add values.yaml to release assets in .releaserc ([e8df5aa](https://github.com/floryn08/valheim-server-discord-bot/commit/e8df5aadf4872e9252df031aff6c6c13a163a9af))
+
 ## [1.1.3](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.1.2...v1.1.3) (2025-05-13)
 
 
