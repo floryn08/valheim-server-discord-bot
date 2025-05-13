@@ -1,0 +1,25 @@
+# 1.0.0 (2025-05-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @kubernetes/client-node to ^0.21.0 ([be9d8d7](https://github.com/floryn08/valheim-server-discord-bot/commit/be9d8d742e575291a124f98791e8508daac31130))
+* **deps:** update dependency discord.js to v14.15.2 ([222b48a](https://github.com/floryn08/valheim-server-discord-bot/commit/222b48a6807d6af9265578ab3e690963c8e9a527))
+* **deps:** update dependency discord.js to v14.15.3 ([667477a](https://github.com/floryn08/valheim-server-discord-bot/commit/667477a1664ae44f3c84c25a5d1512a0c44871e8))
+* fixed branch name ([3aa2fdc](https://github.com/floryn08/valheim-server-discord-bot/commit/3aa2fdc6a96dbda648df59e1da44a099ca11c038))
+* fixed deprecation warning ([a3490cc](https://github.com/floryn08/valheim-server-discord-bot/commit/a3490cc8b2c52545488becceca49014d3301cdc0))
+* fixed tag action error ([11494c4](https://github.com/floryn08/valheim-server-discord-bot/commit/11494c4ab82d680d705ba56a457702987dd7c5a5))
+* install exec ([342d067](https://github.com/floryn08/valheim-server-discord-bot/commit/342d0674a5ea73a71d50e8299a5cdd338b4bbce2))
+* update release configuration by removing exec plugin and adjusting git message format ([f89a3ce](https://github.com/floryn08/valheim-server-discord-bot/commit/f89a3ce6b81fad2ffc10076d953ab038171a77c3))
+
+
+### Features
+
+* added join code extraction from logs and send it as a follow up message after container start ([#1](https://github.com/floryn08/valheim-server-discord-bot/issues/1)) ([2049589](https://github.com/floryn08/valheim-server-discord-bot/commit/2049589fd200dbcdd6a3fb550ac8c1605f20c161))
+* added log parsing to send join code as reply ([#19](https://github.com/floryn08/valheim-server-discord-bot/issues/19)) ([756290d](https://github.com/floryn08/valheim-server-discord-bot/commit/756290dac3a8c0eb8f29154a614aa2e7b79292ec))
+* added multi guild command refresh ([#22](https://github.com/floryn08/valheim-server-discord-bot/issues/22)) ([2d698e8](https://github.com/floryn08/valheim-server-discord-bot/commit/2d698e8ad848e9469e2ac91639bbf59998ea5c1d))
+* added semantic-release ([260a8fa](https://github.com/floryn08/valheim-server-discord-bot/commit/260a8facc8ac55b9288ce0b365dc043751c9ac48))
+* chart releaser ([61ab2b9](https://github.com/floryn08/valheim-server-discord-bot/commit/61ab2b9ff9b63cd20df20ee36c165dc8b984ee07))
+* initial commit ([06dab0e](https://github.com/floryn08/valheim-server-discord-bot/commit/06dab0e88202f2e56a1ab33c871e7acd2ed40884))
+* update for k8s deployment ([#18](https://github.com/floryn08/valheim-server-discord-bot/issues/18)) ([ea41e1f](https://github.com/floryn08/valheim-server-discord-bot/commit/ea41e1ff5c2325a18698c6a5561f2b985ee6bb2d))
+* update release workflow to use cocogitto ([9abeea7](https://github.com/floryn08/valheim-server-discord-bot/commit/9abeea7077727da6baa5d19f3d42bd64058513e2))
