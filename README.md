@@ -12,14 +12,14 @@ The bot registers 3 slash commands:
 ## TODO
 - [x] add multiple guilds command refresh
 - [x] helm chart release
-- [ ] improve release workflow
+- [x] improve release workflow
 - [ ] add back portainer support alongside kubernetes
 - [ ] add odin support
 
 ## How to run
 
 ### With Kubernetes
-TODO
+
 
 ### With docker compose (⚠️ Currently not working)
 1. Invite your bot on a server by using the OAuth2 URL Generator from here: https://discord.com/developers/applications 
