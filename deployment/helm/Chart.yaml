@@ -4,5 +4,5 @@ description: A Helm chart for Kubernetes
 
 type: application
 
-appVersion: 1.2.0-dev.1
-version: 1.2.0-dev.1
+appVersion: 1.2.0-dev-migrate-to-typescript.1
+version: 1.2.0-dev-migrate-to-typescript.1
