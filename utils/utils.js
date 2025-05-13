@@ -145,3 +145,5 @@ exports.status = async (interaction) => {
     await interaction.followUp("Server is running!");
   }
 };
+
+ 
