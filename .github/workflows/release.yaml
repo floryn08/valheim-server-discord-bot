@@ -14,12 +14,12 @@ jobs:
       contents: write
     steps:
       - name: Initial checkout
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.2
         with:
           fetch-depth: "0"
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4.0.3
+        uses: actions/setup-node@v4.4.0
         with:
           cache: "npm"
           node-version: "20"
