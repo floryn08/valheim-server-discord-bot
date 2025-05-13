@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.1.2...v1.1.3) (2025-05-13)
+
+
+### Bug Fixes
+
+* enhance version update script with before/after output ([728674a](https://github.com/floryn08/valheim-server-discord-bot/commit/728674aa263a4b3df10c4449ff5a8cc4f5fc8cad))
+
 ## [1.1.2](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.1.1...v1.1.2) (2025-05-13)
 
 
