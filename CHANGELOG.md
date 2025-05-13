@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.1.5...v1.1.6) (2025-05-13)
+
+
+### Bug Fixes
+
+* trigger release ([7f1efc4](https://github.com/floryn08/valheim-server-discord-bot/commit/7f1efc401992752adc168c71ca3e17176e73907b))
+
 ## [1.1.5](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.1.4...v1.1.5) (2025-05-13)
 
 
