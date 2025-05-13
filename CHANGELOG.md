@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.1.0...v1.1.1) (2025-05-13)
+
+
+### Bug Fixes
+
+* update discordBotImage version substitution in update_versions.sh ([20d59ab](https://github.com/floryn08/valheim-server-discord-bot/commit/20d59abefbf29308d0cb988cb050ada9aa25a85b))
+
 # [1.1.0](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.0.3...v1.1.0) (2025-05-13)
 
 
