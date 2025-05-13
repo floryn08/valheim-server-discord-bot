@@ -1,12 +1,11 @@
-import { Interaction, SlashCommandBuilder } from "discord.js";
+import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 
 import { status } from "../utils/utils.js";
 
-module.exports = {
-	data: new SlashCommandBuilder()
-		.setName('status')
-		.setDescription('Checks the Valheim server status.'),
-	async execute(interaction: Interaction) {
-		await status(interaction);
-	},
-};
+export const data = new SlashCommandBuilder()
+  .setName("status")
+  .setDescription("Checks the Valheim server status.");
+
+export async function execute(interaction: CommandInteraction) {
+  await status(interaction);
+}
