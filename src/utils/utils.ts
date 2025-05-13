@@ -1,7 +1,9 @@
+import { Interaction } from "discord.js";
+
 const { config } = require("../config");
 const k8s = require("@kubernetes/client-node");
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const delay = (ms: number ) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Define the deployment name and namespace
 const deploymentName = config.deploymentName;

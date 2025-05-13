@@ -1,11 +1,12 @@
-const { SlashCommandBuilder } = require('discord.js');
-const { start }  = require("../../utils/utils.js")
+import { Interaction, SlashCommandBuilder } from "discord.js";
+
+import { start } from "../../utils/utils.js";
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('start')
 		.setDescription('Starts the Valheim server.'),
-	async execute(interaction) {
+	async execute(interaction: Interaction) {
 		await start(interaction);
 	},
 };
