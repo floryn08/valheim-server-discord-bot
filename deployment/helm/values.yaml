@@ -1,4 +1,4 @@
 namespace: game-servers
-discordBotImage: ghcr.io/floryn08/valheim-server-discord-bot:0.7.21
+discordBotImage: ghcr.io/floryn08/valheim-server-discord-bot:v1.0.3
 vault:
   enabled: true
