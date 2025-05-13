@@ -1,3 +1,10 @@
+# [1.2.0-dev.1](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.1.4...v1.2.0-dev.1) (2025-05-13)
+
+
+### Features
+
+* refactore typescript ([3a50ef0](https://github.com/floryn08/valheim-server-discord-bot/commit/3a50ef06853e3d910962c1f649a3e66b01cb2f71))
+
 ## [1.1.4](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.1.3...v1.1.4) (2025-05-13)
 
 
