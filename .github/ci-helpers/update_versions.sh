@@ -11,4 +11,4 @@ version=$1
 
 sed -i "s/^version:.*/version: ${version}/" deployment/helm/Chart.yaml
 sed -i "s/^appVersion:.*/appVersion: ${version}/" deployment/helm/Chart.yaml
-sed -i "s|\(discordBotImage: .*:\)[0-9]\+\.[0-9]\+\.[0-9]\+|\1${version}|" deployment/helm/values.yaml
+sed -i "s|valheim-server-discord-bot:[^[:space:]]*|valheim-server-discord-bot:${version}|" deployment/helm/values.yaml
