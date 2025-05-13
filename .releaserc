@@ -10,7 +10,6 @@
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
-    "@semantic-release/github",
     [
       "@semantic-release/npm",
       {
@@ -18,18 +17,14 @@
       }
     ],
     [
-      "@semantic-release/exec",
-      {
-        "verifyReleaseCmd": ".github/ci-helpers/update_versions.sh ${nextRelease.version}"
-      }
-    ],
-    [
       "@semantic-release/git",
       {
         "assets": [
           "package.json",
+          "CHANGELOG.md",
           "deployment/helm/Chart.yaml"
-        ]
+        ],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       }
     ],
     "@semantic-release/github"
