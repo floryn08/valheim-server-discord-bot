@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.1.4...v1.1.5) (2025-05-13)
+
+
+### Bug Fixes
+
+* update discordBotImage tag format in values.yaml ([604e07e](https://github.com/floryn08/valheim-server-discord-bot/commit/604e07ec696b7d3f257d8af806f2ac8a2d553516))
+
 ## [1.1.4](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.1.3...v1.1.4) (2025-05-13)
 
 
