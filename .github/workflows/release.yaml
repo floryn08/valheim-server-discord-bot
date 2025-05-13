@@ -27,6 +27,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Make version update script executable
+        run: chmod +x .github/ci-helpers/update_versions.sh
+
       - name: Run Semantic Release
         run: npx semantic-release
         env:
