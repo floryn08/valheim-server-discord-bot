@@ -12,12 +12,9 @@ const client = new Client({
   ],
 });
 
-client.on(Events.GuildCreate, async () => {
-  await deployCommands();
-});
-
 client.once(Events.ClientReady, (readyClient) => {
   console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+  deployCommands();
 });
 
 client.on(Events.InteractionCreate, async (interaction) => {
