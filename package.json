@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsup src/index.ts --minify",
+    "build": "esbuild src/index.ts --bundle --minify --platform=node --target=node22 --outfile=dist/index.js",
     "start": "node .",
     "dev": "tsx watch src/index.ts"
   },
@@ -21,8 +21,8 @@
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^11.0.2",
     "@types/node": "^22.15.17",
+    "esbuild": "^0.25.4",
     "semantic-release": "^24.1.0",
-    "tsup": "^8.4.0",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3"
   }

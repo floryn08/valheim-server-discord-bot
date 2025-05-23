@@ -3,12 +3,6 @@ FROM node:22-slim
 WORKDIR /bot
 
 # Copy project files
-COPY package*.json ./
-RUN npm install
+COPY dist/ .
 
-# Copy remaining project files
-COPY . .
-
-RUN chmod +x entrypoint.sh
-
-CMD ["/bin/bash", "entrypoint.sh"]
+CMD ["node", "index.js"]
