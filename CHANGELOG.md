@@ -1,3 +1,11 @@
+# [1.2.0-dev-migrate-to-typescript.2](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.2.0-dev-migrate-to-typescript.1...v1.2.0-dev-migrate-to-typescript.2) (2025-05-23)
+
+
+### Bug Fixes
+
+* deploy commands on ready ([9604679](https://github.com/floryn08/valheim-server-discord-bot/commit/9604679a252a475568a13e1ea25e1e6213ce9b59))
+* fixed docker image build ([5e7a0a8](https://github.com/floryn08/valheim-server-discord-bot/commit/5e7a0a8a43c35eb7022f58195c326465c481d599))
+
 # [1.2.0-dev-migrate-to-typescript.1](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.1.4...v1.2.0-dev-migrate-to-typescript.1) (2025-05-13)
 
 

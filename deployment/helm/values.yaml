@@ -1,4 +1,4 @@
 namespace: game-servers
-discordBotImage: ghcr.io/floryn08/valheim-server-discord-bot:1.2.0-dev-migrate-to-typescript.1-dev.1
+discordBotImage: ghcr.io/floryn08/valheim-server-discord-bot:1.2.0-dev-migrate-to-typescript.2-dev-migrate-to-typescript.1-dev.1
 vault:
   enabled: true
