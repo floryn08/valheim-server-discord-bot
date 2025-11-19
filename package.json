@@ -1,10 +1,15 @@
 {
   "name": "valheim-server-discord-bot",
-  "version": "1.1.7",
+  "version": "1.2.0-dev-migrate-to-typescript.3",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "esbuild src/index.ts --bundle --minify --platform=node --target=node22 --outfile=dist/index.js",
+    "start": "node .",
+    "dev": "tsx watch src/index.ts",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +23,14 @@
     "@semantic-release/exec": "^7.0.0",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^11.0.2",
-    "semantic-release": "^24.1.0"
+    "@testing-library/jest-dom": "^6.9.1",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^22.19.1",
+    "esbuild": "^0.25.4",
+    "jest": "^30.2.0",
+    "semantic-release": "^24.1.0",
+    "ts-jest": "^29.4.5",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
   }
 }

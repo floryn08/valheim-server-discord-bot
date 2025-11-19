@@ -19,8 +19,8 @@ grep "discordBotImage:" deployment/helm/values.yaml
 sed -i "s/^version:.*/version: ${version}/" deployment/helm/Chart.yaml
 sed -i "s/^appVersion:.*/appVersion: ${version}/" deployment/helm/Chart.yaml
 
-# Update image tag in values.yaml
-sed -i "s|\(discordBotImage: .*:v\)[0-9]\+\.[0-9]\+\.[0-9]\+|\1${version}|" deployment/helm/values.yaml
+# Update image tag in values.yaml (supports prerelease versions)
+sed -i "s|\(discordBotImage: .*:\).*|\1${version}|" deployment/helm/values.yaml
 
 # Print the result
 echo "After:"

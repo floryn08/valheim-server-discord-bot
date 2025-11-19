@@ -1,2 +1,8 @@
 .env
 node_modules
+dist/
+*.logS
+
+# Test coverage
+coverage/
+.jest/

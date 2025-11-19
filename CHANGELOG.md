@@ -1,23 +1,33 @@
-## [1.1.7](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.1.6...v1.1.7) (2025-05-13)
+# [1.2.0-dev-migrate-to-typescript.3](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.2.0-dev-migrate-to-typescript.2...v1.2.0-dev-migrate-to-typescript.3) (2025-11-19)
 
 
 ### Bug Fixes
 
 * fixed commands ([8c2c860](https://github.com/floryn08/valheim-server-discord-bot/commit/8c2c860a8155cf9c021313e662ecbd261b304859))
-
-## [1.1.6](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.1.5...v1.1.6) (2025-05-13)
-
-
-### Bug Fixes
-
 * trigger release ([7f1efc4](https://github.com/floryn08/valheim-server-discord-bot/commit/7f1efc401992752adc168c71ca3e17176e73907b))
+* update discordBotImage tag format in values.yaml ([604e07e](https://github.com/floryn08/valheim-server-discord-bot/commit/604e07ec696b7d3f257d8af806f2ac8a2d553516))
 
-## [1.1.5](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.1.4...v1.1.5) (2025-05-13)
+# [1.2.0-dev-migrate-to-typescript.2](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.2.0-dev-migrate-to-typescript.1...v1.2.0-dev-migrate-to-typescript.2) (2025-05-23)
 
 
 ### Bug Fixes
 
-* update discordBotImage tag format in values.yaml ([604e07e](https://github.com/floryn08/valheim-server-discord-bot/commit/604e07ec696b7d3f257d8af806f2ac8a2d553516))
+* deploy commands on ready ([9604679](https://github.com/floryn08/valheim-server-discord-bot/commit/9604679a252a475568a13e1ea25e1e6213ce9b59))
+* fixed docker image build ([5e7a0a8](https://github.com/floryn08/valheim-server-discord-bot/commit/5e7a0a8a43c35eb7022f58195c326465c481d599))
+
+# [1.2.0-dev-migrate-to-typescript.1](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.1.4...v1.2.0-dev-migrate-to-typescript.1) (2025-05-13)
+
+
+### Features
+
+* refactore typescript ([3a50ef0](https://github.com/floryn08/valheim-server-discord-bot/commit/3a50ef06853e3d910962c1f649a3e66b01cb2f71))
+
+# [1.2.0-dev.1](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.1.4...v1.2.0-dev.1) (2025-05-13)
+
+
+### Features
+
+* refactore typescript ([3a50ef0](https://github.com/floryn08/valheim-server-discord-bot/commit/3a50ef06853e3d910962c1f649a3e66b01cb2f71))
 
 ## [1.1.4](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.1.3...v1.1.4) (2025-05-13)
 

@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   valheim-server-discord-bot:
     container_name: valheim-server-discord-bot
