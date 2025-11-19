@@ -2,7 +2,13 @@ FROM node:22-slim
 
 WORKDIR /bot
 
-# Copy project files
-COPY dist/ .
+# Copy package files
+COPY package*.json ./
 
-CMD ["node", "index.js"]
+# Install production dependencies only
+RUN npm ci --omit=dev
+
+# Copy built application
+COPY dist/ ./dist/
+
+CMD ["node", "dist/index.js"]

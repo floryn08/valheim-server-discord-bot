@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "esbuild src/index.ts --bundle --minify --platform=node --target=node22 --outfile=dist/index.js",
+    "build": "esbuild src/index.ts --bundle --minify --platform=node --target=node22 --outfile=dist/index.js --packages=external",
     "start": "node .",
     "dev": "tsx watch src/index.ts",
     "test": "jest",
