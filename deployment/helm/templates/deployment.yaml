@@ -21,13 +21,97 @@ spec:
       - name: {{ .Release.Name }}-discord-bot
         image: {{ .Values.discordBotImage }}
         imagePullPolicy: Always
-        {{- if .Values.vault.enabled }}
-        envFrom:
-        - secretRef:
-            name: {{ .Release.Name }}-discord-bot
-        {{- else }}
-        envFrom:
-        - configMapRef:
-            name: {{ .Release.Name }}-discord-bot
-        {{- end }}
+        env:
+        - name: DISCORD_TOKEN
+          valueFrom:
+            {{- if .Values.vault.enabled }}
+            secretKeyRef:
+              name: {{ .Release.Name }}-discord-bot
+              key: DISCORD_TOKEN
+            {{- else }}
+            configMapKeyRef:
+              name: {{ .Release.Name }}-discord-bot
+              key: DISCORD_TOKEN
+            {{- end }}
+        - name: DISCORD_CLIENT_ID
+          valueFrom:
+            {{- if .Values.vault.enabled }}
+            secretKeyRef:
+              name: {{ .Release.Name }}-discord-bot
+              key: DISCORD_CLIENT_ID
+            {{- else }}
+            configMapKeyRef:
+              name: {{ .Release.Name }}-discord-bot
+              key: DISCORD_CLIENT_ID
+            {{- end }}
+        - name: GUILD_IDS
+          valueFrom:
+            {{- if .Values.vault.enabled }}
+            secretKeyRef:
+              name: {{ .Release.Name }}-discord-bot
+              key: GUILD_IDS
+            {{- else }}
+            configMapKeyRef:
+              name: {{ .Release.Name }}-discord-bot
+              key: GUILD_IDS
+            {{- end }}
+        - name: DEPLOYMENT_NAME
+          valueFrom:
+            {{- if .Values.vault.enabled }}
+            secretKeyRef:
+              name: {{ .Release.Name }}-discord-bot
+              key: DEPLOYMENT_NAME
+            {{- else }}
+            configMapKeyRef:
+              name: {{ .Release.Name }}-discord-bot
+              key: DEPLOYMENT_NAME
+            {{- end }}
+        - name: NAMESPACE
+          valueFrom:
+            {{- if .Values.vault.enabled }}
+            secretKeyRef:
+              name: {{ .Release.Name }}-discord-bot
+              key: NAMESPACE
+            {{- else }}
+            configMapKeyRef:
+              name: {{ .Release.Name }}-discord-bot
+              key: NAMESPACE
+            {{- end }}
+        - name: SERVER_NAME
+          valueFrom:
+            {{- if .Values.vault.enabled }}
+            secretKeyRef:
+              name: {{ .Release.Name }}-discord-bot
+              key: SERVER_NAME
+            {{- else }}
+            configMapKeyRef:
+              name: {{ .Release.Name }}-discord-bot
+              key: SERVER_NAME
+            {{- end }}
+        - name: JOIN_CODE_LOOP_COUNT
+          valueFrom:
+            {{- if .Values.vault.enabled }}
+            secretKeyRef:
+              name: {{ .Release.Name }}-discord-bot
+              key: JOIN_CODE_LOOP_COUNT
+              optional: true
+            {{- else }}
+            configMapKeyRef:
+              name: {{ .Release.Name }}-discord-bot
+              key: JOIN_CODE_LOOP_COUNT
+              optional: true
+            {{- end }}
+        - name: JOIN_CODE_LOOP_TIMEOUT_MILLIS
+          valueFrom:
+            {{- if .Values.vault.enabled }}
+            secretKeyRef:
+              name: {{ .Release.Name }}-discord-bot
+              key: JOIN_CODE_LOOP_TIMEOUT_MILLIS
+              optional: true
+            {{- else }}
+            configMapKeyRef:
+              name: {{ .Release.Name }}-discord-bot
+              key: JOIN_CODE_LOOP_TIMEOUT_MILLIS
+              optional: true
+            {{- end }}
 

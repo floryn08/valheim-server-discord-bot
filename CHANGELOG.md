@@ -1,3 +1,16 @@
+# [1.3.0-dev-improve-doc.1](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.2.0...v1.3.0-dev-improve-doc.1) (2025-11-19)
+
+
+### Bug Fixes
+
+* add renovate branches to actions ([dcc146b](https://github.com/floryn08/valheim-server-discord-bot/commit/dcc146b26f7b528d2d5f6d476d4c42a31e17959a))
+
+
+### Features
+
+* chart improvements ([268a051](https://github.com/floryn08/valheim-server-discord-bot/commit/268a0514227dcf3c6bd6f28c94553be1e17081fa))
+* renovate ci ([5d0c5f3](https://github.com/floryn08/valheim-server-discord-bot/commit/5d0c5f330644d6e0344cf30d05e36de8d4382ac8))
+
 # [1.2.0](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.1.7...v1.2.0) (2025-11-19)
 
 
