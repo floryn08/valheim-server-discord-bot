@@ -1,3 +1,12 @@
+# [1.2.0-dev-migrate-to-typescript.3](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.2.0-dev-migrate-to-typescript.2...v1.2.0-dev-migrate-to-typescript.3) (2025-11-19)
+
+
+### Bug Fixes
+
+* fixed commands ([8c2c860](https://github.com/floryn08/valheim-server-discord-bot/commit/8c2c860a8155cf9c021313e662ecbd261b304859))
+* trigger release ([7f1efc4](https://github.com/floryn08/valheim-server-discord-bot/commit/7f1efc401992752adc168c71ca3e17176e73907b))
+* update discordBotImage tag format in values.yaml ([604e07e](https://github.com/floryn08/valheim-server-discord-bot/commit/604e07ec696b7d3f257d8af806f2ac8a2d553516))
+
 # [1.2.0-dev-migrate-to-typescript.2](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.2.0-dev-migrate-to-typescript.1...v1.2.0-dev-migrate-to-typescript.2) (2025-05-23)
 
 
