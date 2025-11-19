@@ -33,7 +33,7 @@ export const start = async (interaction: CommandInteraction) => {
       namespace: namespace,
       body: res,
     })
-    .then(async function (deployment) {
+    .then(async function () {
       // wait after starting the container because it may have some old logs
       // and the old join code may be returned, so we wait a bit for the new container
       // to log some new lines and then start the check loop
