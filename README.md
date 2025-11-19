@@ -1,5 +1,5 @@
 # Valheim Server Discord Bot
-A Discord bot that uses the Portainer API to start and close the Valheim Server Docker container when needed.
+A Discord bot that manages your Valheim server using either Docker or Kubernetes.
 
 This approach minimizes resource consumption since the valheim server docker image I use doesn't support auto pausing the server when there are no players on the server.
 
@@ -8,12 +8,20 @@ The bot registers 3 slash commands:
 - /stop
 - /status
 
+## Runtime Modes
+
+The bot supports two runtime modes:
+- **kubernetes**: Manages Valheim servers running as Kubernetes deployments
+- **docker**: Manages Valheim servers running as Docker containers
+
+Set the runtime mode using the `RUNTIME_MODE` environment variable (defaults to `kubernetes`).
+
 
 ## TODO
 - [x] add multiple guilds command refresh
 - [x] helm chart release
 - [x] improve release workflow
-- [ ] add back portainer support alongside kubernetes
+- [x] add docker support alongside kubernetes
 - [ ] add odin support
 
 ## How to run
@@ -54,6 +62,7 @@ The bot registers 3 slash commands:
    ```
 
    Set the following environment variables:
+   - `RUNTIME_MODE`: Set to `kubernetes` (default)
    - `DISCORD_TOKEN`: Your Discord bot token
    - `DISCORD_CLIENT_ID`: Your Discord application client ID
    - `GUILD_IDS`: Comma-separated list of Discord server IDs
@@ -104,6 +113,73 @@ To remove the deployment:
 ```bash
 helm uninstall valheim-bot -n game-servers
 ```
+
+### With Docker
+
+#### Prerequisites
+- Docker installed and running
+- A running Valheim server container
+- Discord bot credentials
+
+#### Installation Steps
+
+1. **Invite your bot to a Discord server**
+   - Use the OAuth2 URL Generator from https://discord.com/developers/applications
+   - Select the required bot permissions
+
+2. **Create a `.env` file**
+
+   ```env
+   RUNTIME_MODE=docker
+   DISCORD_TOKEN=your_discord_bot_token
+   DISCORD_CLIENT_ID=your_discord_client_id
+   GUILD_IDS=your_guild_id1,your_guild_id2
+   CONTAINER_NAME=your_valheim_container_name
+   DOCKER_SOCKET_PATH=/var/run/docker.sock
+   SERVER_NAME=YourValheimServerName
+   JOIN_CODE_LOOP_COUNT=20
+   JOIN_CODE_LOOP_TIMEOUT_MILLIS=5000
+   ```
+
+   **Environment Variables for Docker Mode:**
+   - `RUNTIME_MODE`: Set to `docker`
+   - `DISCORD_TOKEN`: Your Discord bot token
+   - `DISCORD_CLIENT_ID`: Your Discord application client ID
+   - `GUILD_IDS`: Comma-separated list of Discord server IDs
+   - `CONTAINER_NAME`: The name or ID of your Valheim server Docker container
+   - `DOCKER_SOCKET_PATH`: (Optional) Path to Docker socket (default: `/var/run/docker.sock`)
+   - `SERVER_NAME`: Your Valheim server name (used to extract join code from logs)
+   - `JOIN_CODE_LOOP_COUNT`: (Optional) Number of retries for join code (default: 20)
+   - `JOIN_CODE_LOOP_TIMEOUT_MILLIS`: (Optional) Timeout in milliseconds (default: 5000)
+
+3. **Install dependencies and run**
+
+   ```bash
+   npm install
+   npm run build
+   npm start
+   ```
+
+4. **Run with Docker Compose**
+
+   Create a `docker-compose.yaml`:
+   ```yaml
+   version: '3.8'
+   services:
+     discord-bot:
+       image: ghcr.io/floryn08/valheim-server-discord-bot:latest
+       env_file: .env
+       volumes:
+         - /var/run/docker.sock:/var/run/docker.sock
+       restart: unless-stopped
+   ```
+
+   Run:
+   ```bash
+   docker compose up -d
+   ```
+
+   **Important:** The bot needs access to the Docker socket to manage containers. Ensure `/var/run/docker.sock` is mounted.
 
 ### With docker compose (⚠️ Currently not working)
 1. Invite your bot on a server by using the OAuth2 URL Generator from here: https://discord.com/developers/applications 
