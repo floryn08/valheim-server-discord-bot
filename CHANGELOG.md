@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.2.0...v1.3.0) (2025-11-19)
+
+
+### Features
+
+* doc & chart improvements ([#79](https://github.com/floryn08/valheim-server-discord-bot/issues/79)) ([46de6d5](https://github.com/floryn08/valheim-server-discord-bot/commit/46de6d560e67e1a6883686e6b06bd900025bf187))
+
 # [1.3.0-dev-improve-doc.1](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.2.0...v1.3.0-dev-improve-doc.1) (2025-11-19)
 
 
