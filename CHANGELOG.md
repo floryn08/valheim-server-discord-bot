@@ -1,3 +1,15 @@
+# [1.4.0-dev-docker-support.1](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.3.0...v1.4.0-dev-docker-support.1) (2025-11-19)
+
+
+### Bug Fixes
+
+* fix build ([ea5d377](https://github.com/floryn08/valheim-server-discord-bot/commit/ea5d3773f4faab5cfe232bd44a1ad68eacc4a9b1))
+
+
+### Features
+
+* docker support ([1ca28fd](https://github.com/floryn08/valheim-server-discord-bot/commit/1ca28fdc74d37d1bb9a49b12ac1e2de5c54ffbc8))
+
 # [1.3.0](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.2.0...v1.3.0) (2025-11-19)
 
 
