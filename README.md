@@ -127,7 +127,7 @@ helm uninstall valheim-bot -n game-servers
    - Use the OAuth2 URL Generator from https://discord.com/developers/applications
    - Select the required bot permissions
 
-2. **Create a `.env` file**
+2. **Create a `.env` file (for local development)**
 
    ```env
    RUNTIME_MODE=docker
@@ -135,10 +135,11 @@ helm uninstall valheim-bot -n game-servers
    DISCORD_CLIENT_ID=your_discord_client_id
    GUILD_IDS=your_guild_id1,your_guild_id2
    CONTAINER_NAME=your_valheim_container_name
-   DOCKER_SOCKET_PATH=/var/run/docker.sock
    SERVER_NAME=YourValheimServerName
-   JOIN_CODE_LOOP_COUNT=20
-   JOIN_CODE_LOOP_TIMEOUT_MILLIS=5000
+   # Optional
+   # DOCKER_SOCKET_PATH=/var/run/docker.sock
+   # JOIN_CODE_LOOP_COUNT=20
+   # JOIN_CODE_LOOP_TIMEOUT_MILLIS=5000
    ```
 
    **Environment Variables for Docker Mode:**
@@ -152,23 +153,23 @@ helm uninstall valheim-bot -n game-servers
    - `JOIN_CODE_LOOP_COUNT`: (Optional) Number of retries for join code (default: 20)
    - `JOIN_CODE_LOOP_TIMEOUT_MILLIS`: (Optional) Timeout in milliseconds (default: 5000)
 
-3. **Install dependencies and run**
+3. **Run with Docker Compose**
 
-   ```bash
-   npm install
-   npm run build
-   npm start
-   ```
-
-4. **Run with Docker Compose**
-
-   Create a `docker-compose.yaml`:
+   Update the provided `deployment/docker-compose.yaml` or create your own:
    ```yaml
-   version: '3.8'
    services:
-     discord-bot:
+     valheim-server-discord-bot:
+       container_name: valheim-server-discord-bot
        image: ghcr.io/floryn08/valheim-server-discord-bot:latest
-       env_file: .env
+       environment:
+         RUNTIME_MODE: docker
+         DISCORD_TOKEN: ${DISCORD_TOKEN}
+         DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
+         GUILD_IDS: ${GUILD_IDS}
+         CONTAINER_NAME: ${CONTAINER_NAME}
+         SERVER_NAME: ${SERVER_NAME}
+         JOIN_CODE_LOOP_COUNT: ${JOIN_CODE_LOOP_COUNT:-20}
+         JOIN_CODE_LOOP_TIMEOUT_MILLIS: ${JOIN_CODE_LOOP_TIMEOUT_MILLIS:-5000}
        volumes:
          - /var/run/docker.sock:/var/run/docker.sock
        restart: unless-stopped
@@ -176,19 +177,23 @@ helm uninstall valheim-bot -n game-servers
 
    Run:
    ```bash
-   docker compose up -d
+   docker compose -f deployment/docker-compose.yaml up -d
    ```
 
-   **Important:** The bot needs access to the Docker socket to manage containers. Ensure `/var/run/docker.sock` is mounted.
+   **Important Notes:**
+   - The bot needs access to the Docker socket to manage containers
+   - Ensure `/var/run/docker.sock` is mounted
+   - The bot container must be on the same Docker host as the Valheim server container
+   - This works with Portainer-managed stacks as well
 
-### With docker compose (⚠️ Currently not working)
-1. Invite your bot on a server by using the OAuth2 URL Generator from here: https://discord.com/developers/applications 
-2. Copy `.env.example` to `.env` and update the variables with yours
-3. Run `docker compose up -d` to start the bot
+4. **Using with Portainer**
 
-### With Portainer (⚠️ Currently not working)
-You can deploy this bot as a container in a stack alongside the Valheim Server.
-
-1. Copy the service from the docker-compose.yaml file into your stack
-2. Add environment variables to your stack to match what is required by the container
-3. Redeploy your stack 
+   You can deploy this stack through Portainer:
+   
+   1. In Portainer, go to **Stacks** → **Add stack**
+   2. Name your stack (e.g., `valheim-discord-bot`)
+   3. Paste the docker-compose content from `deployment/docker-compose.yaml`
+   4. Set the environment variables in Portainer's environment variables section
+   5. Deploy the stack
+   
+   The bot will manage your Valheim server container directly through the Docker API, no Portainer API configuration needed.
