@@ -19,8 +19,8 @@ export const config: Config = {
   deploymentName: required("DEPLOYMENT_NAME"),
   namespace: required("NAMESPACE"),
   serverName: required("SERVER_NAME"),
-  joinCodeLoopCount: parseInt(process.env.JOIN_CODE_LOOP_COUNT ?? "20", 10),
-  joinCodeLoopTimeoutMillis: parseInt(
+  joinCodeLoopCount: Number.parseInt(process.env.JOIN_CODE_LOOP_COUNT ?? "20", 10),
+  joinCodeLoopTimeoutMillis: Number.parseInt(
     process.env.JOIN_CODE_LOOP_TIMEOUT_MILLIS ?? "5000",
     10
   ),

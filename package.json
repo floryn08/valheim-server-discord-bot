@@ -2,7 +2,7 @@
   "name": "valheim-server-discord-bot",
   "version": "1.2.0-dev-migrate-to-typescript.2",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "esbuild src/index.ts --bundle --minify --platform=node --target=node22 --outfile=dist/index.js",
     "start": "node .",
@@ -20,7 +20,7 @@
     "@semantic-release/exec": "^7.0.0",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^11.0.2",
-    "@types/node": "^22.15.17",
+    "@types/node": "^22.19.1",
     "esbuild": "^0.25.4",
     "semantic-release": "^24.1.0",
     "tsx": "^4.19.4",

@@ -14,7 +14,7 @@ export async function deployCommands() {
 
     const guildIds = config.guildIds.split(",");
 
-    guildIds.forEach(async (guildId) => {
+    for (const guildId of guildIds) {
       // The put method is used to fully refresh all commands in the guild with the current set
       const data = await rest.put(
         Routes.applicationGuildCommands(config.clientId, guildId),
@@ -24,8 +24,8 @@ export async function deployCommands() {
       console.log(
         `Successfully reloaded ${data.length} application (/) commands for guildId: ${guildId}`
       );
-    });
-  } catch (error) {
+    }
+  } catch (error: unknown) {
     console.error(error);
   }
 }

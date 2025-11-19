@@ -1,6 +1,6 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 
-import { stop } from "../utils/utils.js";
+import { stop } from "../utils/utils";
 
 export const data = new SlashCommandBuilder()
   .setName("stop")

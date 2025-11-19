@@ -46,18 +46,18 @@ export const start = async (interaction: CommandInteraction) => {
       await coreK8sApi
         .listNamespacedPod({ namespace: namespace })
         .then((podList: k8s.V1PodList) => {
-          podList.items.forEach((pod: k8s.V1Pod) => {
+          for (const pod of podList.items) {
             const labels = pod.metadata?.labels;
             if (
               labels &&
               labels["app.kubernetes.io/name"] == config.deploymentName
             ) {
               podObj = pod;
-              pod.spec!.containers.forEach((container) => {
+              for (const container of pod.spec!.containers) {
                 podContainer = container;
-              });
+              }
             }
-          });
+          }
         });
 
       if (!podObj || !podContainer) {
@@ -152,7 +152,7 @@ export const status = async (
     } else {
       await interaction.followUp("✔ Server is running!");
     }
-  } catch (error) {
+  } catch (error: unknown) {
     console.error(error);
     await interaction.followUp("❌ Failed to get server status.");
   }

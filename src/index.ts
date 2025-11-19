@@ -1,7 +1,7 @@
 import { Client, Events, GatewayIntentBits } from "discord.js";
-import { commands } from "./commands/index.js";
-import { config } from "./config.js";
-import { deployCommands } from "./deploy-commands.js";
+import { commands } from "./commands/index";
+import { config } from "./config";
+import { deployCommands } from "./deploy-commands";
 
 // Initialize a new Discord client and log in using the Bot Token.
 const client = new Client({
