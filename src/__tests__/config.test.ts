@@ -1,18 +1,6 @@
 import { config } from '../config';
 
-// Mock environment variables before importing config
 describe('Config', () => {
-  const originalEnv = process.env;
-
-  beforeEach(() => {
-    jest.resetModules();
-    process.env = { ...originalEnv };
-  });
-
-  afterAll(() => {
-    process.env = originalEnv;
-  });
-
   describe('required environment variables', () => {
     it('should load all required config values from environment', () => {
       expect(config.token).toBeDefined();
