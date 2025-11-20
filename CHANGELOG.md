@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.3.0...v1.3.1) (2025-11-20)
+
+
+### Bug Fixes
+
+* fixed chart image version ([b9c06c0](https://github.com/floryn08/valheim-server-discord-bot/commit/b9c06c0f0034f29719861afaf82376c1e8cc9cae))
+
 # [1.3.0](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.2.0...v1.3.0) (2025-11-19)
 
 
