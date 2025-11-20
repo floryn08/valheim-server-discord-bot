@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.3.2...v1.3.3) (2025-11-20)
+
+
+### Bug Fixes
+
+* fixed workflow version sed ([d2f22ec](https://github.com/floryn08/valheim-server-discord-bot/commit/d2f22ec712974449625e55c8a74473bd255a0edc))
+
 ## [1.3.2](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.3.1...v1.3.2) (2025-11-20)
 
 
