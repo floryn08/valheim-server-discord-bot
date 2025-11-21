@@ -118,7 +118,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
         with:
-          ref: v${{ needs.create-release.outputs.tag }}
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v6
