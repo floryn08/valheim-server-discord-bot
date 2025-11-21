@@ -56,6 +56,13 @@ jobs:
         with:
           node-version: '24'
 
+      - name: Install semantic-release
+        run: |
+          npm install -g semantic-release @semantic-release/exec \
+          @semantic-release/git @semantic-release/changelog \
+          @semantic-release/github @semantic-release/commit-analyzer \
+          @semantic-release/release-notes-generator
+
       - name: Make version script executable
         run: chmod +x .github/ci-helpers/update_versions.sh
 
