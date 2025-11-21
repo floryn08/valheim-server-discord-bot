@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   valheim-discord-bot:
   - apiVersion: v2
+    appVersion: 1.4.0-dev-docker-support.3
+    created: "2025-11-21T13:42:20.636932335Z"
+    description: A Helm chart for Kubernetes
+    digest: 1931ce78cace85580d57b495597f827ff5176181b6db2715d01cf6803d0a10f3
+    name: valheim-discord-bot
+    type: application
+    urls:
+    - https://github.com/floryn08/valheim-server-discord-bot/releases/download/valheim-discord-bot-1.4.0-dev-docker-support.3/valheim-discord-bot-1.4.0-dev-docker-support.3.tgz
+    version: 1.4.0-dev-docker-support.3
+  - apiVersion: v2
     appVersion: 1.4.0-dev-docker-support.2
     created: "2025-11-21T10:13:18.869253124Z"
     description: A Helm chart for Kubernetes
@@ -286,4 +296,4 @@ entries:
     urls:
     - https://github.com/floryn08/valheim-server-discord-bot/releases/download/valheim-discord-bot-0.1.0/valheim-discord-bot-0.1.0.tgz
     version: 0.1.0
-generated: "2025-11-21T10:13:18.869582019Z"
+generated: "2025-11-21T13:42:20.637262207Z"
