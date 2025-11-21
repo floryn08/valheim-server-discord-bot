@@ -1,3 +1,5 @@
+# [1.4.0-dev-docker-support.4](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.0-dev-docker-support.3...v1.4.0-dev-docker-support.4) (2025-11-21)
+
 # [1.4.0-dev-docker-support.3](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.0-dev-docker-support.2...v1.4.0-dev-docker-support.3) (2025-11-21)
 
 # [1.4.0-dev-docker-support.2](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.0-dev-docker-support.1...v1.4.0-dev-docker-support.2) (2025-11-21)
