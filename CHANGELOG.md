@@ -1,14 +1,23 @@
-# [1.4.0-dev-docker-support.1](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.3.0...v1.4.0-dev-docker-support.1) (2025-11-19)
+## [1.3.3](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.3.2...v1.3.3) (2025-11-20)
 
 
 ### Bug Fixes
 
-* fix build ([ea5d377](https://github.com/floryn08/valheim-server-discord-bot/commit/ea5d3773f4faab5cfe232bd44a1ad68eacc4a9b1))
+* fixed workflow version sed ([d2f22ec](https://github.com/floryn08/valheim-server-discord-bot/commit/d2f22ec712974449625e55c8a74473bd255a0edc))
+
+## [1.3.2](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.3.1...v1.3.2) (2025-11-20)
 
 
-### Features
+### Bug Fixes
 
-* docker support ([1ca28fd](https://github.com/floryn08/valheim-server-discord-bot/commit/1ca28fdc74d37d1bb9a49b12ac1e2de5c54ffbc8))
+* **deps:** update all npm dependencies (major) ([#75](https://github.com/floryn08/valheim-server-discord-bot/issues/75)) ([cd4f223](https://github.com/floryn08/valheim-server-discord-bot/commit/cd4f223e3a8a8825299598077f158015f155b7fd))
+
+## [1.3.1](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.3.0...v1.3.1) (2025-11-20)
+
+
+### Bug Fixes
+
+* fixed chart image version ([b9c06c0](https://github.com/floryn08/valheim-server-discord-bot/commit/b9c06c0f0034f29719861afaf82376c1e8cc9cae))
 
 # [1.3.0](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.2.0...v1.3.0) (2025-11-19)
 
