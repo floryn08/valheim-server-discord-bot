@@ -148,9 +148,10 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
-            type=semver,pattern=v{{version}},value=${{ needs.create-release.outputs.tag }}
+            type=raw,value=v${{ needs.create-release.outputs.tag }}
             type=semver,pattern=v{{major}}.{{minor}},value=${{ needs.create-release.outputs.tag }},enable=${{ needs.create-release.outputs.is-prerelease == 'false' }}
             type=semver,pattern=v{{major}},value=${{ needs.create-release.outputs.tag }},enable=${{ needs.create-release.outputs.is-prerelease == 'false' }}
+            type=raw,value=latest,enable=${{ needs.create-release.outputs.is-prerelease == 'false' }}
 
       - name: Build and push
         uses: docker/build-push-action@v6
