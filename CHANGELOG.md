@@ -1,3 +1,10 @@
+# [1.4.0-docker-support.3](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.0-docker-support.2...v1.4.0-docker-support.3) (2025-11-21)
+
+
+### Bug Fixes
+
+* update Docker image tagging to include 'latest' for non-prerelease versions ([df242b2](https://github.com/floryn08/valheim-server-discord-bot/commit/df242b290f064c925a2e61e0e00598170e930bda))
+
 # [1.4.0-docker-support.2](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.0-docker-support.1...v1.4.0-docker-support.2) (2025-11-21)
 
 
