@@ -1,3 +1,10 @@
+# [1.4.0-docker-support.2](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.0-docker-support.1...v1.4.0-docker-support.2) (2025-11-21)
+
+
+### Bug Fixes
+
+* enhance version extraction to include prerelease suffixes ([ee4b249](https://github.com/floryn08/valheim-server-discord-bot/commit/ee4b249e4ae3981d481cbc8325a9c68792cc4d41))
+
 # [1.4.0-docker-support.1](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.3.3...v1.4.0-docker-support.1) (2025-11-21)
 
 
