@@ -29,9 +29,17 @@ jest.mock('@kubernetes/client-node', () => {
   };
 });
 
-// Mock config
+// Mock dockerode
+jest.mock('dockerode', () => {
+  return jest.fn().mockImplementation(() => ({
+    getContainer: jest.fn(),
+  }));
+});
+
+// Mock config with Kubernetes mode
 jest.mock('../config', () => ({
   config: {
+    runtimeMode: 'kubernetes',
     deploymentName: 'test-deployment',
     namespace: 'test-namespace',
     serverName: 'test-server',

@@ -6,9 +6,16 @@ describe('Config', () => {
       expect(config.token).toBeDefined();
       expect(config.clientId).toBeDefined();
       expect(config.guildIds).toBeDefined();
-      expect(config.deploymentName).toBeDefined();
-      expect(config.namespace).toBeDefined();
+      expect(config.runtimeMode).toBeDefined();
       expect(config.serverName).toBeDefined();
+      
+      // Runtime-specific checks
+      if (config.runtimeMode === 'kubernetes') {
+        expect(config.deploymentName).toBeDefined();
+        expect(config.namespace).toBeDefined();
+      } else if (config.runtimeMode === 'docker') {
+        expect(config.containerName).toBeDefined();
+      }
     });
 
     it('should have correct types for numeric values', () => {
@@ -19,6 +26,10 @@ describe('Config', () => {
     it('should use default values for optional numeric configs', () => {
       expect(config.joinCodeLoopCount).toBeGreaterThan(0);
       expect(config.joinCodeLoopTimeoutMillis).toBeGreaterThan(0);
+    });
+
+    it('should have valid runtime mode', () => {
+      expect(['kubernetes', 'docker']).toContain(config.runtimeMode);
     });
   });
 

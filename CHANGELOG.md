@@ -1,3 +1,57 @@
+# [1.4.0-docker-support.3](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.0-docker-support.2...v1.4.0-docker-support.3) (2025-11-21)
+
+
+### Bug Fixes
+
+* update Docker image tagging to include 'latest' for non-prerelease versions ([df242b2](https://github.com/floryn08/valheim-server-discord-bot/commit/df242b290f064c925a2e61e0e00598170e930bda))
+
+# [1.4.0-docker-support.2](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.0-docker-support.1...v1.4.0-docker-support.2) (2025-11-21)
+
+
+### Bug Fixes
+
+* enhance version extraction to include prerelease suffixes ([ee4b249](https://github.com/floryn08/valheim-server-discord-bot/commit/ee4b249e4ae3981d481cbc8325a9c68792cc4d41))
+
+# [1.4.0-docker-support.1](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.3.3...v1.4.0-docker-support.1) (2025-11-21)
+
+
+### Bug Fixes
+
+* add semantic-release installation to CI workflows ([9a6cf30](https://github.com/floryn08/valheim-server-discord-bot/commit/9a6cf304f6554b859b1ba452547fede62f0704ab))
+* fix build ([ea5d377](https://github.com/floryn08/valheim-server-discord-bot/commit/ea5d3773f4faab5cfe232bd44a1ad68eacc4a9b1))
+* refactor actions workflow ([ebc8e2c](https://github.com/floryn08/valheim-server-discord-bot/commit/ebc8e2ce79b58f3fd11d03a64d620482f0d38e0d))
+* update Docker image tagging to include 'v' prefix for semantic versioning ([88bdd04](https://github.com/floryn08/valheim-server-discord-bot/commit/88bdd04b21cdb3e728f6c331092c3345920c2280))
+* update prerelease configuration to dynamically extract version from branch name ([1f52d8d](https://github.com/floryn08/valheim-server-discord-bot/commit/1f52d8d5195176d56de06be09f7e480461594970))
+
+
+### Features
+
+* docker support ([1ca28fd](https://github.com/floryn08/valheim-server-discord-bot/commit/1ca28fdc74d37d1bb9a49b12ac1e2de5c54ffbc8))
+
+# [1.4.0-dev-docker-support.6](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.0-dev-docker-support.5...v1.4.0-dev-docker-support.6) (2025-11-21)
+
+
+### Bug Fixes
+
+* update Docker image tagging to include 'v' prefix for semantic versioning ([88bdd04](https://github.com/floryn08/valheim-server-discord-bot/commit/88bdd04b21cdb3e728f6c331092c3345920c2280))
+
+# [1.4.0-dev-docker-support.5](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.0-dev-docker-support.4...v1.4.0-dev-docker-support.5) (2025-11-21)
+
+# [1.4.0-dev-docker-support.4](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.0-dev-docker-support.3...v1.4.0-dev-docker-support.4) (2025-11-21)
+
+# [1.4.0-dev-docker-support.3](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.0-dev-docker-support.2...v1.4.0-dev-docker-support.3) (2025-11-21)
+
+# [1.4.0-dev-docker-support.2](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.0-dev-docker-support.1...v1.4.0-dev-docker-support.2) (2025-11-21)
+
+
+### Bug Fixes
+
+* add semantic-release installation to CI workflows ([9a6cf30](https://github.com/floryn08/valheim-server-discord-bot/commit/9a6cf304f6554b859b1ba452547fede62f0704ab))
+* **deps:** update all npm dependencies (major) ([#75](https://github.com/floryn08/valheim-server-discord-bot/issues/75)) ([cd4f223](https://github.com/floryn08/valheim-server-discord-bot/commit/cd4f223e3a8a8825299598077f158015f155b7fd))
+* fixed chart image version ([b9c06c0](https://github.com/floryn08/valheim-server-discord-bot/commit/b9c06c0f0034f29719861afaf82376c1e8cc9cae))
+* fixed workflow version sed ([d2f22ec](https://github.com/floryn08/valheim-server-discord-bot/commit/d2f22ec712974449625e55c8a74473bd255a0edc))
+* refactor actions workflow ([ebc8e2c](https://github.com/floryn08/valheim-server-discord-bot/commit/ebc8e2ce79b58f3fd11d03a64d620482f0d38e0d))
+
 ## [1.3.3](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.3.2...v1.3.3) (2025-11-20)
 
 
