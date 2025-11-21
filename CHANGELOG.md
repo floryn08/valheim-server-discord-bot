@@ -1,3 +1,19 @@
+# [1.4.0-docker-support.1](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.3.3...v1.4.0-docker-support.1) (2025-11-21)
+
+
+### Bug Fixes
+
+* add semantic-release installation to CI workflows ([9a6cf30](https://github.com/floryn08/valheim-server-discord-bot/commit/9a6cf304f6554b859b1ba452547fede62f0704ab))
+* fix build ([ea5d377](https://github.com/floryn08/valheim-server-discord-bot/commit/ea5d3773f4faab5cfe232bd44a1ad68eacc4a9b1))
+* refactor actions workflow ([ebc8e2c](https://github.com/floryn08/valheim-server-discord-bot/commit/ebc8e2ce79b58f3fd11d03a64d620482f0d38e0d))
+* update Docker image tagging to include 'v' prefix for semantic versioning ([88bdd04](https://github.com/floryn08/valheim-server-discord-bot/commit/88bdd04b21cdb3e728f6c331092c3345920c2280))
+* update prerelease configuration to dynamically extract version from branch name ([1f52d8d](https://github.com/floryn08/valheim-server-discord-bot/commit/1f52d8d5195176d56de06be09f7e480461594970))
+
+
+### Features
+
+* docker support ([1ca28fd](https://github.com/floryn08/valheim-server-discord-bot/commit/1ca28fdc74d37d1bb9a49b12ac1e2de5c54ffbc8))
+
 # [1.4.0-dev-docker-support.6](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.0-dev-docker-support.5...v1.4.0-dev-docker-support.6) (2025-11-21)
 
 

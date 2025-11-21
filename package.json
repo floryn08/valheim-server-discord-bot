@@ -1,6 +1,6 @@
 {
   "name": "valheim-server-discord-bot",
-  "version": "1.4.0-dev-docker-support.6",
+  "version": "1.4.0-docker-support.1",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
