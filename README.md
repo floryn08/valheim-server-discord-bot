@@ -16,14 +16,6 @@ The bot supports two runtime modes:
 
 Set the runtime mode using the `RUNTIME_MODE` environment variable (defaults to `kubernetes`).
 
-
-## TODO
-- [x] add multiple guilds command refresh
-- [x] helm chart release
-- [x] improve release workflow
-- [x] add docker support alongside kubernetes
-- [ ] add odin support
-
 ## How to run
 
 ### With Kubernetes
