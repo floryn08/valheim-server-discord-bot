@@ -1,3 +1,10 @@
+# [1.4.0-dev-docker-support.6](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.0-dev-docker-support.5...v1.4.0-dev-docker-support.6) (2025-11-21)
+
+
+### Bug Fixes
+
+* update Docker image tagging to include 'v' prefix for semantic versioning ([88bdd04](https://github.com/floryn08/valheim-server-discord-bot/commit/88bdd04b21cdb3e728f6c331092c3345920c2280))
+
 # [1.4.0-dev-docker-support.5](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.0-dev-docker-support.4...v1.4.0-dev-docker-support.5) (2025-11-21)
 
 # [1.4.0-dev-docker-support.4](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.0-dev-docker-support.3...v1.4.0-dev-docker-support.4) (2025-11-21)

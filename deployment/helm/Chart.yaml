@@ -4,5 +4,5 @@ description: A Helm chart for Kubernetes
 
 type: application
 
-appVersion: 1.4.0-dev-docker-support.5
-version: 1.4.0-dev-docker-support.5
+appVersion: 1.4.0-dev-docker-support.6
+version: 1.4.0-dev-docker-support.6
