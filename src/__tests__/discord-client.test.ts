@@ -14,7 +14,7 @@ describe('Discord.js Client API', () => {
   });
 
   it('should verify Events has required values', () => {
-    expect(Events.ClientReady).toBe('ready');
+    expect(Events.ClientReady).toBe('clientReady');
     expect(Events.InteractionCreate).toBe('interactionCreate');
   });
 
