@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.3...v2.0.0) (2026-01-31)
+
+
+### Features
+
+* control different type of game servers ([3c96b57](https://github.com/floryn08/valheim-server-discord-bot/commit/3c96b57e850011acc5f20e391cf2305ce6dc06dd))
+
+
+### BREAKING CHANGES
+
+* control different type of game servers
+
 # [1.5.0-refactor.2](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.5.0-refactor.1...v1.5.0-refactor.2) (2026-01-31)
 
 
