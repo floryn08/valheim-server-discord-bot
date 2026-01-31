@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/floryn08/valheim-server-discord-bot/compare/v2.0.0...v2.0.1) (2026-01-31)
+
+
+### Bug Fixes
+
+* fixed helm chart ([ded1215](https://github.com/floryn08/valheim-server-discord-bot/commit/ded12150072dd30323e0fea69dc6da486c33e023))
+
 # [2.0.0](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.3...v2.0.0) (2026-01-31)
 
 
