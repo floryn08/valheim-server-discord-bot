@@ -9,7 +9,7 @@ data:
   GUILD_IDS: ''
   NAMESPACE: '{{ .Values.namespace }}'
   # JSON array of server configurations
-  # Example: '[{"id":"valheim","deploymentName":"valheim-deploy","containerName":"valheim","serverName":"My Valheim"}]'
+  # Example: '[{"id":"valheim","resourceName":"valheim-deploy","resourceType":"deployment","containerName":"valheim","serverName":"My Valheim","startedLogPattern":"Session \"My Valheim\" with join code","joinCodeWordIndex":5},{"id":"terraria","resourceName":"terraria-sts","resourceType":"statefulset","containerName":"terraria","serverName":"My Terraria","startedLogPattern":"Server started"}]'
   SERVERS: ''
   JOIN_CODE_LOOP_COUNT: '20'
   JOIN_CODE_LOOP_TIMEOUT_MILLIS: '5000'

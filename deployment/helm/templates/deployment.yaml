@@ -55,16 +55,16 @@ spec:
               name: {{ .Release.Name }}-discord-bot
               key: GUILD_IDS
             {{- end }}
-        - name: DEPLOYMENT_NAME
+        - name: SERVERS
           valueFrom:
             {{- if .Values.vault.enabled }}
             secretKeyRef:
               name: {{ .Release.Name }}-discord-bot
-              key: DEPLOYMENT_NAME
+              key: SERVERS
             {{- else }}
             configMapKeyRef:
               name: {{ .Release.Name }}-discord-bot
-              key: DEPLOYMENT_NAME
+              key: SERVERS
             {{- end }}
         - name: NAMESPACE
           valueFrom:
@@ -76,17 +76,6 @@ spec:
             configMapKeyRef:
               name: {{ .Release.Name }}-discord-bot
               key: NAMESPACE
-            {{- end }}
-        - name: SERVER_NAME
-          valueFrom:
-            {{- if .Values.vault.enabled }}
-            secretKeyRef:
-              name: {{ .Release.Name }}-discord-bot
-              key: SERVER_NAME
-            {{- else }}
-            configMapKeyRef:
-              name: {{ .Release.Name }}-discord-bot
-              key: SERVER_NAME
             {{- end }}
         - name: JOIN_CODE_LOOP_COUNT
           valueFrom:
