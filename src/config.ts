@@ -36,8 +36,13 @@ const parseServers = (): ServerConfig[] => {
       if (!server.startedLogPattern) {
         throw new Error(`Server '${server.id}' must have 'startedLogPattern' property`);
       }
-      if (runtimeMode === "kubernetes" && !server.deploymentName) {
-        throw new Error(`Server '${server.id}' must have 'deploymentName' for Kubernetes mode`);
+      if (runtimeMode === "kubernetes") {
+        if (!server.resourceName) {
+          throw new Error(`Server '${server.id}' must have 'resourceName' for Kubernetes mode`);
+        }
+        if (server.resourceType && !["deployment", "statefulset"].includes(server.resourceType)) {
+          throw new Error(`Server '${server.id}' has invalid 'resourceType'. Must be 'deployment' or 'statefulset'`);
+        }
       }
       if (runtimeMode === "docker" && !server.containerName) {
         throw new Error(`Server '${server.id}' must have 'containerName' for Docker mode`);

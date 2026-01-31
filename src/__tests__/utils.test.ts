@@ -47,7 +47,8 @@ jest.mock('../config', () => ({
   servers: [
     {
       id: 'valheim',
-      deploymentName: 'valheim-deployment',
+      resourceName: 'valheim-deployment',
+      resourceType: 'deployment',
       containerName: 'valheim-container',
       serverName: 'Test Valheim Server',
       startedLogPattern: 'Session "Test Valheim Server" with join code',
@@ -58,7 +59,8 @@ jest.mock('../config', () => ({
     if (id === 'valheim') {
       return {
         id: 'valheim',
-        deploymentName: 'valheim-deployment',
+        resourceName: 'valheim-deployment',
+        resourceType: 'deployment',
         containerName: 'valheim-container',
         serverName: 'Test Valheim Server',
         startedLogPattern: 'Session "Test Valheim Server" with join code',

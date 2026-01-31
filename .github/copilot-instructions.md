@@ -60,7 +60,8 @@ Add server config to the `SERVERS` environment variable JSON array:
 [
   {
     "id": "valheim",
-    "deploymentName": "valheim-deploy",
+    "resourceName": "valheim-deploy",
+    "resourceType": "deployment",
     "containerName": "valheim",
     "serverName": "My Valheim",
     "startedLogPattern": "Session \"My Valheim\" with join code",
@@ -68,13 +69,16 @@ Add server config to the `SERVERS` environment variable JSON array:
   },
   {
     "id": "terraria",
-    "deploymentName": "terraria-deploy",
+    "resourceName": "terraria-statefulset",
+    "resourceType": "statefulset",
     "containerName": "terraria",
     "serverName": "My Terraria",
     "startedLogPattern": "Server started"
   }
 ]
 ```
+- `resourceName`: Kubernetes resource name (deployment or statefulset)
+- `resourceType`: Type of Kubernetes resource - `deployment` (default) or `statefulset`
 - `startedLogPattern`: The log message pattern to detect when the server has started
 - `joinCodeWordIndex`: (Optional) If the server outputs a join code, the word index to extract it from
 

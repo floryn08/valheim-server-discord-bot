@@ -6,7 +6,8 @@ process.env.NAMESPACE = 'test-namespace';
 process.env.SERVERS = JSON.stringify([
   {
     id: 'valheim',
-    deploymentName: 'valheim-deployment',
+    resourceName: 'valheim-deployment',
+    resourceType: 'deployment',
     containerName: 'valheim-container',
     serverName: 'My Valheim Server',
     startedLogPattern: 'Session "My Valheim Server" with join code',
@@ -14,7 +15,8 @@ process.env.SERVERS = JSON.stringify([
   },
   {
     id: 'terraria',
-    deploymentName: 'terraria-deployment',
+    resourceName: 'terraria-statefulset',
+    resourceType: 'statefulset',
     containerName: 'terraria-container',
     serverName: 'My Terraria Server',
     startedLogPattern: 'Server started',

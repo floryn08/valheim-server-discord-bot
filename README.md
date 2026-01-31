@@ -70,7 +70,8 @@ Set the runtime mode using the `RUNTIME_MODE` environment variable (defaults to 
    [
      {
        "id": "valheim",
-       "deploymentName": "valheim-deployment",
+       "resourceName": "valheim-deployment",
+       "resourceType": "deployment",
        "containerName": "valheim-container",
        "serverName": "My Valheim Server",
        "startedLogPattern": "Session \"My Valheim Server\" with join code",
@@ -78,7 +79,8 @@ Set the runtime mode using the `RUNTIME_MODE` environment variable (defaults to 
      },
      {
        "id": "terraria",
-       "deploymentName": "terraria-deployment",
+       "resourceName": "terraria-statefulset",
+       "resourceType": "statefulset",
        "containerName": "terraria-container",
        "serverName": "My Terraria Server",
        "startedLogPattern": "Server started"
@@ -86,7 +88,8 @@ Set the runtime mode using the `RUNTIME_MODE` environment variable (defaults to 
    ]
    ```
    - `id`: Unique identifier for the server (shown in Discord autocomplete)
-   - `deploymentName`: Kubernetes deployment name (required for Kubernetes mode)
+   - `resourceName`: Kubernetes resource name - deployment or statefulset (required for Kubernetes mode)
+   - `resourceType`: Type of Kubernetes resource - `deployment` (default) or `statefulset` (optional)
    - `containerName`: Docker container name (required for Docker mode)
    - `serverName`: Display name for the server (used in messages)
    - `startedLogPattern`: Pattern to search for in logs to detect server has started
@@ -154,7 +157,7 @@ helm uninstall valheim-bot -n game-servers
    DISCORD_TOKEN=your_discord_bot_token
    DISCORD_CLIENT_ID=your_discord_client_id
    GUILD_IDS=your_guild_id1,your_guild_id2
-   SERVERS='[{"id":"valheim","deploymentName":"valheim-deployment","containerName":"valheim-container","serverName":"My Valheim Server","startedLogPattern":"Session \"My Valheim Server\" with join code","joinCodeWordIndex":5}]'
+   SERVERS='[{"id":"valheim","resourceName":"valheim-deployment","containerName":"valheim-container","serverName":"My Valheim Server","startedLogPattern":"Session \"My Valheim Server\" with join code","joinCodeWordIndex":5}]'
    # Optional
    # DOCKER_SOCKET_PATH=/var/run/docker.sock
    # JOIN_CODE_LOOP_COUNT=20

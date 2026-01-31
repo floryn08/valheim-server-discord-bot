@@ -40,7 +40,7 @@ describe('Config', () => {
       for (const server of servers) {
         expect(server.id).toBeDefined();
         expect(server.serverName).toBeDefined();
-        expect(server.deploymentName).toBeDefined();
+        expect(server.resourceName).toBeDefined();
         expect(server.containerName).toBeDefined();
         expect(server.startedLogPattern).toBeDefined();
       }
@@ -52,6 +52,14 @@ describe('Config', () => {
       
       const terraria = getServerById('terraria');
       expect(terraria?.joinCodeWordIndex).toBeUndefined();
+    });
+
+    it('should support different resource types', () => {
+      const valheim = getServerById('valheim');
+      expect(valheim?.resourceType).toBe('deployment');
+      
+      const terraria = getServerById('terraria');
+      expect(terraria?.resourceType).toBe('statefulset');
     });
 
     it('should find server by id', () => {
