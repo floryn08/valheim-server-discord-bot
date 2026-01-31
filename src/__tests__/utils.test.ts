@@ -36,15 +36,38 @@ jest.mock('dockerode', () => {
   }));
 });
 
-// Mock config with Kubernetes mode
+// Mock config with Kubernetes mode and servers
 jest.mock('../config', () => ({
   config: {
     runtimeMode: 'kubernetes',
-    deploymentName: 'test-deployment',
     namespace: 'test-namespace',
-    serverName: 'test-server',
     joinCodeLoopCount: 2,
     joinCodeLoopTimeoutMillis: 100,
+  },
+  servers: [
+    {
+      id: 'valheim',
+      resourceName: 'valheim-deployment',
+      resourceType: 'deployment',
+      containerName: 'valheim-container',
+      serverName: 'Test Valheim Server',
+      startedLogPattern: 'Session "Test Valheim Server" with join code',
+      joinCodeWordIndex: 5,
+    },
+  ],
+  getServerById: (id: string) => {
+    if (id === 'valheim') {
+      return {
+        id: 'valheim',
+        resourceName: 'valheim-deployment',
+        resourceType: 'deployment',
+        containerName: 'valheim-container',
+        serverName: 'Test Valheim Server',
+        startedLogPattern: 'Session "Test Valheim Server" with join code',
+        joinCodeWordIndex: 5,
+      };
+    }
+    return undefined;
   },
 }));
 
@@ -69,7 +92,7 @@ describe('Discord.js Interaction API', () => {
       mockReadNamespacedDeployment.mockResolvedValue(mockDeployment);
       mockReplaceNamespacedDeployment.mockResolvedValue({});
 
-      await stop(mockInteraction);
+      await stop(mockInteraction, 'valheim');
 
       expect(mockInteraction.reply).toHaveBeenCalled();
       expect(mockInteraction.followUp).toHaveBeenCalled();
@@ -80,16 +103,16 @@ describe('Discord.js Interaction API', () => {
     it('should handle errors with followUp', async () => {
       mockReadNamespacedDeployment.mockRejectedValue(new Error('K8s error'));
 
-      await status(mockInteraction);
+      await status(mockInteraction, 'valheim');
 
-      expect(mockInteraction.followUp).toHaveBeenCalledWith('❌ Failed to get server status.');
+      expect(mockInteraction.followUp).toHaveBeenCalledWith('❌ Failed to get valheim server status.');
     });
   });
 
   it('should verify interaction methods return Promises', async () => {
     mockReadNamespacedDeployment.mockResolvedValue({ spec: { replicas: 1 } });
 
-    const statusPromise = status(mockInteraction);
+    const statusPromise = status(mockInteraction, 'valheim');
     expect(statusPromise).toBeInstanceOf(Promise);
     await statusPromise;
   });

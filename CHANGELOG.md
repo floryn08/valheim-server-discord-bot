@@ -1,3 +1,17 @@
+# [1.5.0-refactor.2](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.5.0-refactor.1...v1.5.0-refactor.2) (2026-01-31)
+
+
+### Features
+
+* refactor for other games ([d6ea0af](https://github.com/floryn08/valheim-server-discord-bot/commit/d6ea0af70391c64716d20515582fbd3551147c42))
+
+# [1.5.0-refactor.1](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.3...v1.5.0-refactor.1) (2026-01-31)
+
+
+### Features
+
+* refactor for other games ([1725090](https://github.com/floryn08/valheim-server-discord-bot/commit/1725090313228c68642ecd6ee850959a9b2fc39f))
+
 ## [1.4.3](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.2...v1.4.3) (2025-12-14)
 
 ## [1.4.2](https://github.com/floryn08/valheim-server-discord-bot/compare/v1.4.1...v1.4.2) (2025-12-11)
