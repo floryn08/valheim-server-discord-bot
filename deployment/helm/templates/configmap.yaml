@@ -7,8 +7,9 @@ data:
   DISCORD_TOKEN: ''
   DISCORD_CLIENT_ID: ''
   GUILD_IDS: ''
-  DEPLOYMENT_NAME: ''
   NAMESPACE: '{{ .Values.namespace }}'
-  SERVER_NAME: ''
+  # JSON array of server configurations
+  # Example: '[{"id":"valheim","deploymentName":"valheim-deploy","containerName":"valheim","serverName":"My Valheim"}]'
+  SERVERS: ''
   JOIN_CODE_LOOP_COUNT: '20'
   JOIN_CODE_LOOP_TIMEOUT_MILLIS: '5000'

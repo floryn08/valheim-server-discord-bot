@@ -9,11 +9,11 @@ services:
       DISCORD_TOKEN: ${DISCORD_TOKEN}
       DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
       GUILD_IDS: ${GUILD_IDS}
-      # Docker mode configuration
-      CONTAINER_NAME: ${CONTAINER_NAME}
+      # Server configurations as JSON array
+      # Example: '[{"id":"valheim","deploymentName":"valheim-deploy","containerName":"valheim","serverName":"My Valheim"}]'
+      SERVERS: ${SERVERS}
       # DOCKER_SOCKET_PATH: /var/run/docker.sock  # Optional, defaults to this value
       # Common configuration
-      SERVER_NAME: ${SERVER_NAME}
       JOIN_CODE_LOOP_COUNT: ${JOIN_CODE_LOOP_COUNT:-20}
       JOIN_CODE_LOOP_TIMEOUT_MILLIS: ${JOIN_CODE_LOOP_TIMEOUT_MILLIS:-5000}
     volumes:

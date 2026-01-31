@@ -1,22 +1,21 @@
 import * as k8s from "@kubernetes/client-node";
 import { CommandInteraction } from "discord.js";
-import { config } from "../config";
+import { config, getServerById } from "../config";
 import { ServerAdapter } from "./server-adapter.interface";
+import { ServerConfig } from "../types/server-config.type";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export class KubernetesAdapter implements ServerAdapter {
-  private readonly deploymentName: string;
   private readonly namespace: string;
   private readonly appsK8sApi: k8s.AppsV1Api;
   private readonly coreK8sApi: k8s.CoreV1Api;
 
   constructor() {
-    if (!config.deploymentName || !config.namespace) {
-      throw new Error("DEPLOYMENT_NAME and NAMESPACE are required for Kubernetes mode");
+    if (!config.namespace) {
+      throw new Error("NAMESPACE is required for Kubernetes mode");
     }
 
-    this.deploymentName = config.deploymentName;
     this.namespace = config.namespace;
 
     const kc = new k8s.KubeConfig();
@@ -25,13 +24,22 @@ export class KubernetesAdapter implements ServerAdapter {
     this.coreK8sApi = kc.makeApiClient(k8s.CoreV1Api);
   }
 
-  async start(interaction: CommandInteraction): Promise<void> {
-    await interaction.reply("Starting server...");
-    console.log("Starting server...");
+  private getServer(serverId: string): ServerConfig {
+    const server = getServerById(serverId);
+    if (!server) {
+      throw new Error(`Server '${serverId}' not found in configuration`);
+    }
+    return server;
+  }
+
+  async start(interaction: CommandInteraction, serverId: string): Promise<void> {
+    const server = this.getServer(serverId);
+    await interaction.reply(`Starting ${server.id} server...`);
+    console.log(`Starting ${server.id} server...`);
 
     // find the particular deployment
     const res = await this.appsK8sApi.readNamespacedDeployment({
-      name: this.deploymentName,
+      name: server.deploymentName,
       namespace: this.namespace,
     });
 
@@ -41,7 +49,7 @@ export class KubernetesAdapter implements ServerAdapter {
     // replace
     await this.appsK8sApi
       .replaceNamespacedDeployment({
-        name: this.deploymentName,
+        name: server.deploymentName,
         namespace: this.namespace,
         body: res,
       })
@@ -53,7 +61,6 @@ export class KubernetesAdapter implements ServerAdapter {
 
         let podObj: k8s.V1Pod | undefined;
         let podContainer: k8s.V1Container | undefined;
-        let joinCode: string = "";
 
         await this.coreK8sApi
           .listNamespacedPod({ namespace: this.namespace })
@@ -62,7 +69,7 @@ export class KubernetesAdapter implements ServerAdapter {
               const labels = pod.metadata?.labels;
               if (
                 labels &&
-                labels["app.kubernetes.io/name"] == config.deploymentName
+                labels["app.kubernetes.io/name"] == server.deploymentName
               ) {
                 podObj = pod;
                 for (const container of pod.spec!.containers) {
@@ -83,6 +90,9 @@ export class KubernetesAdapter implements ServerAdapter {
         console.log("pod: ", podObj.metadata?.name);
         console.log("container:", podContainer.name);
 
+        let serverStarted = false;
+        let joinCode: string | undefined;
+
         for (let i = 0; i < config.joinCodeLoopCount; i++) {
           await this.coreK8sApi
             .readNamespacedPodLog({
@@ -94,41 +104,50 @@ export class KubernetesAdapter implements ServerAdapter {
               tailLines: 10,
             })
             .then((log) => {
-              let index = log.indexOf(
-                `Session "${config.serverName}" with join code`
-              );
+              const index = log.indexOf(server.startedLogPattern);
               if (index !== -1) {
-                // Get the next word after the string
-                let words = log.slice(index).split(" ");
-                joinCode = words[5]; // The next word is at index 5
+                serverStarted = true;
+                // Extract join code if joinCodeWordIndex is configured
+                if (server.joinCodeWordIndex !== undefined) {
+                  const words = log.slice(index).split(" ");
+                  joinCode = words[server.joinCodeWordIndex];
+                }
+              } else {
+                console.log("Server not started yet, retrying...");
               }
-
-              console.log("Join code not present yet, retrying...");
             });
 
-          if (joinCode != "") {
-            await interaction.followUp(
-              `Server started successfully! Join code is ${joinCode}`
-            );
-            console.log("Server started successfully! Join code is", joinCode);
-
-            break;
+          if (serverStarted) {
+            if (joinCode) {
+              await interaction.followUp(
+                `${server.id} server started successfully! Join code is ${joinCode}`
+              );
+              console.log(`${server.id} server started successfully! Join code is`, joinCode);
+            } else {
+              await interaction.followUp(`${server.id} server started successfully!`);
+              console.log(`${server.id} server started successfully!`);
+            }
+            return;
           }
 
           await delay(config.joinCodeLoopTimeoutMillis);
         }
-      });
 
-    await interaction.followUp("Server is running!");
+        // If we get here, the loop finished without detecting server started
+        await interaction.followUp(
+          `${server.id} server is running, but startup confirmation could not be detected from logs.`
+        );
+      });
   }
 
-  async stop(interaction: CommandInteraction): Promise<void> {
-    await interaction.reply("Stopping server...");
-    console.log("Stopping server...");
+  async stop(interaction: CommandInteraction, serverId: string): Promise<void> {
+    const server = this.getServer(serverId);
+    await interaction.reply(`Stopping ${server.id} server...`);
+    console.log(`Stopping ${server.id} server...`);
 
     // find the particular deployment
     const deployment = await this.appsK8sApi.readNamespacedDeployment({
-      name: this.deploymentName,
+      name: server.deploymentName,
       namespace: this.namespace,
     });
 
@@ -137,34 +156,35 @@ export class KubernetesAdapter implements ServerAdapter {
 
     // replace
     await this.appsK8sApi.replaceNamespacedDeployment({
-      name: this.deploymentName,
+      name: server.deploymentName,
       namespace: this.namespace,
       body: deployment,
     });
 
-    await interaction.followUp("Server is stopped!");
-    console.log("Server is stopped!");
+    await interaction.followUp(`${server.id} server is stopped!`);
+    console.log(`${server.id} server is stopped!`);
   }
 
-  async status(interaction: CommandInteraction): Promise<void> {
-    await interaction.reply("Getting server status...");
-    console.log("Getting server status...");
+  async status(interaction: CommandInteraction, serverId: string): Promise<void> {
+    const server = this.getServer(serverId);
+    await interaction.reply(`Getting ${server.id} server status...`);
+    console.log(`Getting ${server.id} server status...`);
 
     try {
       // find the particular deployment
       const deployment = await this.appsK8sApi.readNamespacedDeployment({
-        name: this.deploymentName,
+        name: server.deploymentName,
         namespace: this.namespace,
       });
 
       if (deployment.spec?.replicas == 0) {
-        await interaction.followUp("✔ Server is stopped!");
+        await interaction.followUp(`✔ ${server.id} server is stopped!`);
       } else {
-        await interaction.followUp("✔ Server is running!");
+        await interaction.followUp(`✔ ${server.id} server is running!`);
       }
     } catch (error: unknown) {
       console.error(error);
-      await interaction.followUp("❌ Failed to get server status.");
+      await interaction.followUp(`❌ Failed to get ${server.id} server status.`);
     }
   }
 }

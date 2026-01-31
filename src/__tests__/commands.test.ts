@@ -1,4 +1,4 @@
-import { CommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import { data as startData, execute as startExecute } from '../commands/start';
 import { data as stopData } from '../commands/stop';
 import { data as statusData } from '../commands/status';
@@ -31,15 +31,31 @@ describe('Discord.js Command API', () => {
     }
   });
 
+  it('should verify commands have a server option with autocomplete', () => {
+    const commands = [startData, stopData, statusData];
+    for (const cmd of commands) {
+      const json = cmd.toJSON();
+      expect(json.options).toBeDefined();
+      expect(json.options!.length).toBeGreaterThan(0);
+      const serverOption = json.options![0] as { name: string; required: boolean; autocomplete: boolean };
+      expect(serverOption.name).toBe('server');
+      expect(serverOption.required).toBe(true);
+      expect(serverOption.autocomplete).toBe(true);
+    }
+  });
+
   it('should verify CommandInteraction has reply and followUp methods', async () => {
     const mockInteraction = {
       reply: jest.fn().mockResolvedValue(undefined),
       followUp: jest.fn().mockResolvedValue(undefined),
-    } as unknown as CommandInteraction;
+      options: {
+        getString: jest.fn().mockReturnValue('valheim'),
+      },
+    } as unknown as ChatInputCommandInteraction;
 
     await startExecute(mockInteraction);
     
-    expect(utils.start).toHaveBeenCalledWith(mockInteraction);
+    expect(utils.start).toHaveBeenCalledWith(mockInteraction, 'valheim');
     expect(typeof mockInteraction.reply).toBe('function');
     expect(typeof mockInteraction.followUp).toBe('function');
   });

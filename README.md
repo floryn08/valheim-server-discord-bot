@@ -1,12 +1,14 @@
 # Valheim Server Discord Bot
-A Discord bot that manages your Valheim server using either Docker or Kubernetes.
+A Discord bot that manages your game servers (Valheim, Terraria, etc.) using either Docker or Kubernetes.
 
-This approach minimizes resource consumption since the valheim server docker image I use doesn't support auto pausing the server when there are no players on the server.
+This approach minimizes resource consumption since many game server docker images don't support auto pausing the server when there are no players on the server.
 
 The bot registers 3 slash commands:
-- /start
-- /stop
-- /status
+- `/start <server>` - Start a game server
+- `/stop <server>` - Stop a game server  
+- `/status <server>` - Check a game server's status
+
+Each command includes autocomplete suggestions for available servers.
 
 ## Runtime Modes
 
@@ -58,11 +60,37 @@ Set the runtime mode using the `RUNTIME_MODE` environment variable (defaults to 
    - `DISCORD_TOKEN`: Your Discord bot token
    - `DISCORD_CLIENT_ID`: Your Discord application client ID
    - `GUILD_IDS`: Comma-separated list of Discord server IDs
-   - `DEPLOYMENT_NAME`: The name of your Valheim server deployment in Kubernetes
-   - `NAMESPACE`: The namespace where your Valheim server runs (defaults to the chart namespace)
-   - `SERVER_NAME`: Your Valheim server name
+   - `NAMESPACE`: The namespace where your game servers run (defaults to the chart namespace)
+   - `SERVERS`: JSON array of server configurations (see below)
    - `JOIN_CODE_LOOP_COUNT`: (Optional) Number of retries for join code (default: 20)
    - `JOIN_CODE_LOOP_TIMEOUT_MILLIS`: (Optional) Timeout in milliseconds (default: 5000)
+
+   **SERVERS Configuration Format:**
+   ```json
+   [
+     {
+       "id": "valheim",
+       "deploymentName": "valheim-deployment",
+       "containerName": "valheim-container",
+       "serverName": "My Valheim Server",
+       "startedLogPattern": "Session \"My Valheim Server\" with join code",
+       "joinCodeWordIndex": 5
+     },
+     {
+       "id": "terraria",
+       "deploymentName": "terraria-deployment",
+       "containerName": "terraria-container",
+       "serverName": "My Terraria Server",
+       "startedLogPattern": "Server started"
+     }
+   ]
+   ```
+   - `id`: Unique identifier for the server (shown in Discord autocomplete)
+   - `deploymentName`: Kubernetes deployment name (required for Kubernetes mode)
+   - `containerName`: Docker container name (required for Docker mode)
+   - `serverName`: Display name for the server (used in messages)
+   - `startedLogPattern`: Pattern to search for in logs to detect server has started
+   - `joinCodeWordIndex`: (Optional) Word index to extract join code from matched log line
 
    **Option B: Using HashiCorp Vault (recommended for production)**
    
@@ -110,7 +138,7 @@ helm uninstall valheim-bot -n game-servers
 
 #### Prerequisites
 - Docker installed and running
-- A running Valheim server container
+- A running game server container
 - Discord bot credentials
 
 #### Installation Steps
@@ -126,8 +154,7 @@ helm uninstall valheim-bot -n game-servers
    DISCORD_TOKEN=your_discord_bot_token
    DISCORD_CLIENT_ID=your_discord_client_id
    GUILD_IDS=your_guild_id1,your_guild_id2
-   CONTAINER_NAME=your_valheim_container_name
-   SERVER_NAME=YourValheimServerName
+   SERVERS='[{"id":"valheim","deploymentName":"valheim-deployment","containerName":"valheim-container","serverName":"My Valheim Server","startedLogPattern":"Session \"My Valheim Server\" with join code","joinCodeWordIndex":5}]'
    # Optional
    # DOCKER_SOCKET_PATH=/var/run/docker.sock
    # JOIN_CODE_LOOP_COUNT=20
@@ -139,9 +166,8 @@ helm uninstall valheim-bot -n game-servers
    - `DISCORD_TOKEN`: Your Discord bot token
    - `DISCORD_CLIENT_ID`: Your Discord application client ID
    - `GUILD_IDS`: Comma-separated list of Discord server IDs
-   - `CONTAINER_NAME`: The name or ID of your Valheim server Docker container
+   - `SERVERS`: JSON array of server configurations (see Kubernetes section for format)
    - `DOCKER_SOCKET_PATH`: (Optional) Path to Docker socket (default: `/var/run/docker.sock`)
-   - `SERVER_NAME`: Your Valheim server name (used to extract join code from logs)
    - `JOIN_CODE_LOOP_COUNT`: (Optional) Number of retries for join code (default: 20)
    - `JOIN_CODE_LOOP_TIMEOUT_MILLIS`: (Optional) Timeout in milliseconds (default: 5000)
 
@@ -158,8 +184,7 @@ helm uninstall valheim-bot -n game-servers
          DISCORD_TOKEN: ${DISCORD_TOKEN}
          DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
          GUILD_IDS: ${GUILD_IDS}
-         CONTAINER_NAME: ${CONTAINER_NAME}
-         SERVER_NAME: ${SERVER_NAME}
+         SERVERS: ${SERVERS}
          JOIN_CODE_LOOP_COUNT: ${JOIN_CODE_LOOP_COUNT:-20}
          JOIN_CODE_LOOP_TIMEOUT_MILLIS: ${JOIN_CODE_LOOP_TIMEOUT_MILLIS:-5000}
        volumes:
