@@ -1,3 +1,11 @@
+## [2.0.2](https://github.com/floryn08/valheim-server-discord-bot/compare/v2.0.1...v2.0.2) (2026-01-31)
+
+
+### Bug Fixes
+
+* fixed deps ([6e0b157](https://github.com/floryn08/valheim-server-discord-bot/commit/6e0b157d86ca4c0dbbc85a72c85fa0caf91265f5))
+* fixed versions ([1508d3e](https://github.com/floryn08/valheim-server-discord-bot/commit/1508d3ef73bc079e8c5575fbde80246b3c066159))
+
 ## [2.0.1](https://github.com/floryn08/valheim-server-discord-bot/compare/v2.0.0...v2.0.1) (2026-01-31)
 
 
