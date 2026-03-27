@@ -16,7 +16,7 @@
   "dependencies": {
     "@kubernetes/client-node": "1.4.0",
     "discord.js": "14.25.1",
-    "dockerode": "4.0.9",
+    "dockerode": "4.0.10",
     "dotenv": "17.3.1"
   },
   "devDependencies": {
