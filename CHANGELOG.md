@@ -1,3 +1,10 @@
+## [2.0.8](https://github.com/floryn08/valheim-server-discord-bot/compare/v2.0.7...v2.0.8) (2026-03-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency dockerode to v4.0.10 ([#94](https://github.com/floryn08/valheim-server-discord-bot/issues/94)) ([1d7a59f](https://github.com/floryn08/valheim-server-discord-bot/commit/1d7a59fcd8d11eb59bebec13fc0525caff2a9ed7))
+
 ## [2.0.7](https://github.com/floryn08/valheim-server-discord-bot/compare/v2.0.6...v2.0.7) (2026-03-13)
 
 ## [2.0.6](https://github.com/floryn08/valheim-server-discord-bot/compare/v2.0.5...v2.0.6) (2026-03-13)
