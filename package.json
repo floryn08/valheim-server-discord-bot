@@ -15,7 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "@kubernetes/client-node": "1.4.0",
-    "discord.js": "14.26.3",
+    "discord.js": "14.26.4",
     "dockerode": "4.0.12",
     "dotenv": "17.4.2"
   },
