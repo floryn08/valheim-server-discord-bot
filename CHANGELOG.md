@@ -1,3 +1,10 @@
+## [2.0.11](https://github.com/floryn08/valheim-server-discord-bot/compare/v2.0.10...v2.0.11) (2026-05-08)
+
+
+### Bug Fixes
+
+* **deps:** update all npm dependencies (major) ([#96](https://github.com/floryn08/valheim-server-discord-bot/issues/96)) ([e2a50a9](https://github.com/floryn08/valheim-server-discord-bot/commit/e2a50a950c0fdecd8a99ecc0c3bb1d2aab70e00a))
+
 ## [2.0.10](https://github.com/floryn08/valheim-server-discord-bot/compare/v2.0.9...v2.0.10) (2026-05-08)
 
 
