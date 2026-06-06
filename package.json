@@ -27,7 +27,7 @@
     "@testing-library/jest-dom": "6.9.1",
     "@types/dockerode": "4.0.1",
     "@types/jest": "30.0.0",
-    "@types/node": "25.9.1",
+    "@types/node": "25.9.2",
     "esbuild": "0.28.0",
     "jest": "30.4.2",
     "semantic-release": "25.0.3",
