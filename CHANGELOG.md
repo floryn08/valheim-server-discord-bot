@@ -1,3 +1,5 @@
+## [2.0.13](https://github.com/floryn08/valheim-server-discord-bot/compare/v2.0.12...v2.0.13) (2026-06-07)
+
 ## [2.0.12](https://github.com/floryn08/valheim-server-discord-bot/compare/v2.0.11...v2.0.12) (2026-06-05)
 
 ## [2.0.11](https://github.com/floryn08/valheim-server-discord-bot/compare/v2.0.10...v2.0.11) (2026-05-08)
