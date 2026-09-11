@@ -1,3 +1,10 @@
+## [2.0.18](https://github.com/floryn08/valheim-server-discord-bot/compare/v2.0.17...v2.0.18) (2026-09-11)
+
+
+### Bug Fixes
+
+* add retry logic for reading pod logs during container creation ([86c3b97](https://github.com/floryn08/valheim-server-discord-bot/commit/86c3b9735458968b19340237c30e3b1cdd6f8114))
+
 ## [2.0.17](https://github.com/floryn08/valheim-server-discord-bot/compare/v2.0.16...v2.0.17) (2026-09-07)
 
 ## [2.0.16](https://github.com/floryn08/valheim-server-discord-bot/compare/v2.0.15...v2.0.16) (2026-08-24)
