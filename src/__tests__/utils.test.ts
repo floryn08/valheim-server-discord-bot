@@ -72,7 +72,7 @@ jest.mock('../config', () => ({
 }));
 
 import { CommandInteraction } from 'discord.js';
-import { stop, status } from '../utils/utils';
+import { start, stop, status } from '../utils/utils';
 
 describe('Discord.js Interaction API', () => {
   let mockInteraction: CommandInteraction;
@@ -115,5 +115,33 @@ describe('Discord.js Interaction API', () => {
     const statusPromise = status(mockInteraction, 'valheim');
     expect(statusPromise).toBeInstanceOf(Promise);
     await statusPromise;
+  });
+
+  it('retries when Kubernetes rejects logs while the container is creating', async () => {
+    mockReadNamespacedDeployment.mockResolvedValue({ spec: { replicas: 0 } });
+    mockReplaceNamespacedDeployment.mockResolvedValue({});
+    mockListNamespacedPod.mockResolvedValue({
+      items: [{
+        metadata: {
+          name: 'valheim-pod',
+          labels: { 'app.kubernetes.io/name': 'valheim-deployment' },
+        },
+        spec: { containers: [{ name: 'valheim-container' }] },
+      }],
+    });
+    mockReadNamespacedPodLog
+      .mockRejectedValueOnce(new Error('container is waiting to start: ContainerCreating'))
+      .mockResolvedValueOnce('Session "Test Valheim Server" with join code ABC123');
+    const consoleError = jest.spyOn(console, 'error').mockImplementation();
+
+    await expect(start(mockInteraction, 'valheim')).resolves.toBeUndefined();
+
+    expect(mockReadNamespacedPodLog).toHaveBeenCalledTimes(2);
+    expect(mockInteraction.followUp).toHaveBeenCalledWith(expect.stringContaining('started successfully'));
+    expect(consoleError).toHaveBeenCalledWith(
+      'Error reading Kubernetes pod logs, retrying:',
+      expect.any(Error)
+    );
+    consoleError.mockRestore();
   });
 });

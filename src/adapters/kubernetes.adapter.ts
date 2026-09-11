@@ -118,14 +118,22 @@ export class KubernetesAdapter implements ServerAdapter {
     let joinCode: string | undefined;
 
     for (let i = 0; i < config.joinCodeLoopCount; i++) {
-      const log = await this.coreK8sApi.readNamespacedPodLog({
-        name: podObj.metadata?.name as string,
-        namespace: this.namespace,
-        container: podContainer.name,
-        follow: false,
-        pretty: "true",
-        tailLines: 10,
-      });
+      let log: string;
+      try {
+        log = await this.coreK8sApi.readNamespacedPodLog({
+          name: podObj.metadata?.name as string,
+          namespace: this.namespace,
+          container: podContainer.name,
+          follow: false,
+          pretty: "true",
+          tailLines: 10,
+        });
+      } catch (error: unknown) {
+        // Pods may be listed before the container is ready to serve logs.
+        console.error("Error reading Kubernetes pod logs, retrying:", error);
+        await delay(config.joinCodeLoopTimeoutMillis);
+        continue;
+      }
 
       const index = log.indexOf(server.startedLogPattern);
       if (index !== -1) {
