@@ -1,3 +1,10 @@
+## [2.0.19](https://github.com/floryn08/valheim-server-discord-bot/compare/v2.0.18...v2.0.19) (2026-09-18)
+
+
+### Bug Fixes
+
+* handle errors for autocomplete interactions to prevent bot crashes ([8cea8dc](https://github.com/floryn08/valheim-server-discord-bot/commit/8cea8dc17388b1a432607abc85efb9d3379a5f69))
+
 ## [2.0.18](https://github.com/floryn08/valheim-server-discord-bot/compare/v2.0.17...v2.0.18) (2026-09-11)
 
 
