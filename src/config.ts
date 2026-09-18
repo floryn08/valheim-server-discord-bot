@@ -47,6 +47,20 @@ const parseServers = (): ServerConfig[] => {
       if (runtimeMode === "docker" && !server.containerName) {
         throw new Error(`Server '${server.id}' must have 'containerName' for Docker mode`);
       }
+      if (server.autoStop) {
+        try {
+          new RegExp(server.autoStop.playerCountLogPattern);
+        } catch (error) {
+          const reason = error instanceof Error ? error.message : String(error);
+          throw new Error(`Server '${server.id}' has invalid autoStop.playerCountLogPattern: ${reason}`);
+        }
+        for (const key of ["idleTimeoutMillis", "checkIntervalMillis"] as const) {
+          const value = server.autoStop[key];
+          if (value !== undefined && (!Number.isFinite(value) || value <= 0)) {
+            throw new Error(`Server '${server.id}' autoStop.${key} must be a positive number`);
+          }
+        }
+      }
     }
     return servers;
   } catch (error) {

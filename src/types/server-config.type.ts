@@ -1,6 +1,18 @@
 /** Kubernetes resource type for scaling */
 export type KubernetesResourceType = "deployment" | "statefulset";
 
+export type AutoStopConfig = {
+  /**
+   * Regular expression with a capture group containing the current player count.
+   * The newest matching log line is authoritative.
+   */
+  playerCountLogPattern: string;
+  /** How long the server must remain empty before it is stopped. Defaults to 30 minutes. */
+  idleTimeoutMillis?: number;
+  /** How often the bot polls the pod log. Defaults to 30 seconds. */
+  checkIntervalMillis?: number;
+};
+
 export type ServerConfig = {
   /** Unique identifier for the server (e.g., "valheim", "terraria") */
   id: string;
@@ -29,4 +41,9 @@ export type ServerConfig = {
    * If not provided, no join code will be extracted.
    */
   joinCodeWordIndex?: number;
+  /**
+   * Opt-in Kubernetes log-based idle shutdown. This is useful for crossplay
+   * servers where a UDP status query cannot report the player count.
+   */
+  autoStop?: AutoStopConfig;
 };

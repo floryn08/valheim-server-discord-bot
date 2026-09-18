@@ -1,10 +1,29 @@
 import * as k8s from "@kubernetes/client-node";
 import { CommandInteraction } from "discord.js";
-import { config, getServerById } from "../config";
+import { config, getServerById, servers } from "../config";
 import { ServerAdapter } from "./server-adapter.interface";
 import { ServerConfig } from "../types/server-config.type";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const DEFAULT_AUTO_STOP_IDLE_TIMEOUT_MILLIS = 30 * 60 * 1000;
+const DEFAULT_AUTO_STOP_CHECK_INTERVAL_MILLIS = 30 * 1000;
+
+/** Returns the player count from the newest matching server-log line. */
+export function getLatestPlayerCount(log: string, pattern: string): number | undefined {
+  const expression = new RegExp(pattern, "gm");
+  let playerCount: number | undefined;
+
+  for (const match of log.matchAll(expression)) {
+    const capture = match.slice(1).find((value) => value !== undefined);
+    if (capture === undefined) continue;
+
+    const parsed = Number.parseInt(capture, 10);
+    if (Number.isFinite(parsed) && parsed >= 0) playerCount = parsed;
+  }
+
+  return playerCount;
+}
 
 export class KubernetesAdapter implements ServerAdapter {
   private readonly namespace: string;
@@ -78,6 +97,74 @@ export class KubernetesAdapter implements ServerAdapter {
     }
   }
 
+  private async findServerPod(server: ServerConfig): Promise<k8s.V1Pod | undefined> {
+    const podList = await this.coreK8sApi.listNamespacedPod({ namespace: this.namespace });
+    return podList.items.find(
+      (pod) => pod.metadata?.labels?.["app.kubernetes.io/name"] === server.resourceName
+    );
+  }
+
+  /**
+   * Starts one independent log monitor for every Kubernetes server that opted in
+   * to auto-stop. A bot restart resets the idle timer, which is intentionally
+   * conservative: a server must be observed empty for the full timeout.
+   */
+  startAutoStopMonitors(): void {
+    for (const server of config.runtimeMode === "kubernetes" ? servers : []) {
+      if (!server.autoStop) continue;
+
+      let emptySince: number | undefined;
+      let checking = false;
+      const idleTimeoutMillis = server.autoStop.idleTimeoutMillis ?? DEFAULT_AUTO_STOP_IDLE_TIMEOUT_MILLIS;
+      const checkIntervalMillis = server.autoStop.checkIntervalMillis ?? DEFAULT_AUTO_STOP_CHECK_INTERVAL_MILLIS;
+
+      const check = async () => {
+        if (checking) return;
+        checking = true;
+        try {
+          if ((await this.getResourceReplicas(server)) === 0) {
+            emptySince = undefined;
+            return;
+          }
+
+          const pod = await this.findServerPod(server);
+          if (!pod?.metadata?.name) return;
+
+          const log = await this.coreK8sApi.readNamespacedPodLog({
+            name: pod.metadata.name,
+            namespace: this.namespace,
+            container: server.containerName,
+            follow: false,
+            tailLines: 500,
+          });
+          const playerCount = getLatestPlayerCount(log, server.autoStop!.playerCountLogPattern);
+          if (playerCount === undefined) return;
+
+          if (playerCount > 0) {
+            emptySince = undefined;
+            return;
+          }
+
+          emptySince ??= Date.now();
+          if (Date.now() - emptySince >= idleTimeoutMillis) {
+            await this.scaleResource(server, 0);
+            emptySince = undefined;
+            console.log(`${server.id} server stopped after ${idleTimeoutMillis}ms with zero players.`);
+          }
+        } catch (error: unknown) {
+          // A failed API or log read must never be interpreted as an empty server.
+          console.error(`Failed to check auto-stop status for ${server.id}:`, error);
+        } finally {
+          checking = false;
+        }
+      };
+
+      console.log(`Auto-stop enabled for ${server.id}; idle timeout is ${idleTimeoutMillis}ms.`);
+      void check();
+      setInterval(() => void check(), checkIntervalMillis);
+    }
+  }
+
   async start(interaction: CommandInteraction, serverId: string): Promise<void> {
     const server = this.getServer(serverId);
     await interaction.reply(`Starting ${server.id} server...`);
@@ -91,28 +178,15 @@ export class KubernetesAdapter implements ServerAdapter {
     // to log some new lines and then start the check loop
     await delay(config.joinCodeLoopTimeoutMillis);
 
-    let podObj: k8s.V1Pod | undefined;
-    let podContainer: k8s.V1Container | undefined;
-
-    const podList = await this.coreK8sApi.listNamespacedPod({ namespace: this.namespace });
-    for (const pod of podList.items) {
-      const labels = pod.metadata?.labels;
-      if (labels && labels["app.kubernetes.io/name"] == server.resourceName) {
-        podObj = pod;
-        for (const container of pod.spec!.containers) {
-          podContainer = container;
-        }
-      }
-    }
-
-    if (!podObj || !podContainer) {
+    const podObj = await this.findServerPod(server);
+    if (!podObj?.metadata?.name) {
       await interaction.followUp("❌ Failed to find the server pod or container.");
       console.error("Failed to find the server pod or container.");
       return;
     }
 
     console.log("pod: ", podObj.metadata?.name);
-    console.log("container:", podContainer.name);
+    console.log("container:", server.containerName);
 
     let serverStarted = false;
     let joinCode: string | undefined;
@@ -123,7 +197,7 @@ export class KubernetesAdapter implements ServerAdapter {
         log = await this.coreK8sApi.readNamespacedPodLog({
           name: podObj.metadata?.name as string,
           namespace: this.namespace,
-          container: podContainer.name,
+          container: server.containerName,
           follow: false,
           pretty: "true",
           tailLines: 10,

@@ -73,6 +73,7 @@ jest.mock('../config', () => ({
 
 import { CommandInteraction } from 'discord.js';
 import { start, stop, status } from '../utils/utils';
+import { getLatestPlayerCount } from '../adapters/kubernetes.adapter';
 
 describe('Discord.js Interaction API', () => {
   let mockInteraction: CommandInteraction;
@@ -143,5 +144,19 @@ describe('Discord.js Interaction API', () => {
       expect.any(Error)
     );
     consoleError.mockRestore();
+  });
+});
+
+describe("crossplay auto-stop player count", () => {
+  const pattern = "(?:now (\\d+) player\\(s\\)|Connections (\\d+) ZDOS)";
+
+  it("uses the newest crossplay count, including the periodic Connections line", () => {
+    const log = [
+      "Player joined server \"TheBatCave\", now 2 player(s)",
+      "Player connection lost server \"TheBatCave\", now 1 player(s)",
+      "Connections 0 ZDOS:304390 sent:0 recv:0",
+    ].join("\n");
+
+    expect(getLatestPlayerCount(log, pattern)).toBe(0);
   });
 });

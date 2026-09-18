@@ -75,7 +75,11 @@ Set the runtime mode using the `RUNTIME_MODE` environment variable (defaults to 
        "containerName": "valheim-container",
        "serverName": "My Valheim Server",
        "startedLogPattern": "Session \"My Valheim Server\" with join code",
-       "joinCodeWordIndex": 5
+       "joinCodeWordIndex": 5,
+       "autoStop": {
+         "playerCountLogPattern": "(?:now (\\d+) player\\(s\\)|Connections (\\d+) ZDOS)",
+         "idleTimeoutMillis": 1800000
+       }
      },
      {
        "id": "terraria",
@@ -94,6 +98,9 @@ Set the runtime mode using the `RUNTIME_MODE` environment variable (defaults to 
    - `serverName`: Display name for the server (used in messages)
    - `startedLogPattern`: Pattern to search for in logs to detect server has started
    - `joinCodeWordIndex`: (Optional) Word index to extract join code from matched log line
+   - `autoStop`: (Optional, Kubernetes only) polls the configured container log. Its regular expression must capture the player count; the server stops only after the latest count stays at zero for `idleTimeoutMillis` (30 minutes by default).
+
+   For crossplay Valheim, use `(?:now (\d+) player\(s\)|Connections (\d+) ZDOS)`. This recognizes both PlayFab join/leave lines and the periodic `Connections` line, so it does not depend on Odin’s UDP status query.
 
    **Option B: Using HashiCorp Vault (recommended for production)**
    
