@@ -1,4 +1,4 @@
-import { Client, Events, GatewayIntentBits } from "discord.js";
+import { Client, DiscordAPIError, Events, GatewayIntentBits } from "discord.js";
 import { commands } from "./commands/index";
 import { config } from "./config";
 import { deployCommands } from "./deploy-commands";
@@ -17,13 +17,26 @@ client.once(Events.ClientReady, (readyClient) => {
   deployCommands();
 });
 
+function isUnknownInteraction(error: unknown): boolean {
+  return error instanceof DiscordAPIError && error.code === 10062;
+}
+
 client.on(Events.InteractionCreate, async (interaction) => {
   // Handle autocomplete interactions
   if (interaction.isAutocomplete()) {
     const { commandName } = interaction;
     const command = commands[commandName as keyof typeof commands];
     if (command && "autocomplete" in command) {
-      await command.autocomplete(interaction);
+      try {
+        await command.autocomplete(interaction);
+      } catch (error: unknown) {
+        // Autocomplete interactions expire quickly; a stale response must not crash the bot.
+        if (isUnknownInteraction(error)) {
+          console.warn("Autocomplete interaction expired before it could be answered.");
+        } else {
+          console.error("Failed to answer autocomplete interaction:", error);
+        }
+      }
     }
     return;
   }
