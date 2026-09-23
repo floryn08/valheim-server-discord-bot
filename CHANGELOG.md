@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/floryn08/valheim-server-discord-bot/compare/v2.1.0...v2.2.0) (2026-09-23)
+
+
+### Features
+
+* autostop notifications ([a931dc1](https://github.com/floryn08/valheim-server-discord-bot/commit/a931dc15dfb4157c02f4b3b9f75f7cd7a30f31e1))
+
 # [2.1.0](https://github.com/floryn08/valheim-server-discord-bot/compare/v2.0.19...v2.1.0) (2026-09-18)
 
 
