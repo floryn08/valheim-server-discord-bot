@@ -17,7 +17,7 @@ client.once(Events.ClientReady, (readyClient) => {
   console.log(`Ready! Logged in as ${readyClient.user.tag}`);
   deployCommands();
   if (config.runtimeMode === "kubernetes") {
-    new KubernetesAdapter().startAutoStopMonitors();
+    new KubernetesAdapter().startAutoStopMonitors(client);
   }
 });
 

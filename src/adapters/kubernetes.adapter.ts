@@ -1,5 +1,5 @@
 import * as k8s from "@kubernetes/client-node";
-import { CommandInteraction } from "discord.js";
+import { Client, CommandInteraction } from "discord.js";
 import { config, getServerById, servers } from "../config";
 import { ServerAdapter } from "./server-adapter.interface";
 import { ServerConfig } from "../types/server-config.type";
@@ -8,6 +8,7 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const DEFAULT_AUTO_STOP_IDLE_TIMEOUT_MILLIS = 30 * 60 * 1000;
 const DEFAULT_AUTO_STOP_CHECK_INTERVAL_MILLIS = 30 * 1000;
+const AUTO_STOP_WARNING_MILLIS = 5 * 60 * 1000;
 
 /** Returns the player count from the newest matching server-log line. */
 export function getLatestPlayerCount(log: string, pattern: string): number | undefined {
@@ -104,16 +105,37 @@ export class KubernetesAdapter implements ServerAdapter {
     );
   }
 
+  private async sendAutoStopNotification(client: Client, message: string): Promise<void> {
+    let notificationSent = false;
+    for (const guildId of config.guildIds.split(",").map((id) => id.trim()).filter(Boolean)) {
+      try {
+        const guild = await client.guilds.fetch(guildId);
+        if (!guild.systemChannel) {
+          console.warn("Guild " + guildId + " has no system channel for auto-stop notifications.");
+          continue;
+        }
+        await guild.systemChannel.send(message);
+        notificationSent = true;
+      } catch (error: unknown) {
+        console.error("Failed to send auto-stop notification to guild " + guildId + ":", error);
+      }
+    }
+    if (!notificationSent) {
+      console.warn("No configured guild system channel accepted the auto-stop notification.");
+    }
+  }
+
   /**
    * Starts one independent log monitor for every Kubernetes server that opted in
    * to auto-stop. A bot restart resets the idle timer, which is intentionally
    * conservative: a server must be observed empty for the full timeout.
    */
-  startAutoStopMonitors(): void {
+  startAutoStopMonitors(client: Client): void {
     for (const server of config.runtimeMode === "kubernetes" ? servers : []) {
       if (!server.autoStop) continue;
 
       let emptySince: number | undefined;
+      let warningSent = false;
       let checking = false;
       const idleTimeoutMillis = server.autoStop.idleTimeoutMillis ?? DEFAULT_AUTO_STOP_IDLE_TIMEOUT_MILLIS;
       const checkIntervalMillis = server.autoStop.checkIntervalMillis ?? DEFAULT_AUTO_STOP_CHECK_INTERVAL_MILLIS;
@@ -124,6 +146,7 @@ export class KubernetesAdapter implements ServerAdapter {
         try {
           if ((await this.getResourceReplicas(server)) === 0) {
             emptySince = undefined;
+            warningSent = false;
             return;
           }
 
@@ -142,13 +165,24 @@ export class KubernetesAdapter implements ServerAdapter {
 
           if (playerCount > 0) {
             emptySince = undefined;
+            warningSent = false;
             return;
           }
 
           emptySince ??= Date.now();
+          const warningMillis = Math.min(AUTO_STOP_WARNING_MILLIS, idleTimeoutMillis);
+          if (!warningSent && Date.now() - emptySince >= idleTimeoutMillis - warningMillis) {
+            await this.sendAutoStopNotification(
+              client,
+              "⚠️ " + server.serverName + " has no players and will stop in " + Math.ceil(warningMillis / 60000) + " minutes unless someone joins."
+            );
+            warningSent = true;
+          }
           if (Date.now() - emptySince >= idleTimeoutMillis) {
             await this.scaleResource(server, 0);
+            await this.sendAutoStopNotification(client, "🛑 " + server.serverName + " has been stopped after being empty.");
             emptySince = undefined;
+            warningSent = false;
             console.log(`${server.id} server stopped after ${idleTimeoutMillis}ms with zero players.`);
           }
         } catch (error: unknown) {

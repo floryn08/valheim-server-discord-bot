@@ -102,6 +102,8 @@ Set the runtime mode using the `RUNTIME_MODE` environment variable (defaults to 
 
    For crossplay Valheim, use `(?:now (\d+) player\(s\)|Connections (\d+) ZDOS)`. This recognizes both PlayFab join/leave lines and the periodic `Connections` line, so it does not depend on Odin’s UDP status query.
 
+   Auto-stop warnings and confirmations are sent to the system channel of every guild in `GUILD_IDS`; no additional configuration is required. Each guild must have a system channel configured, and the bot needs permission to view and send messages there.
+
    **Option B: Using HashiCorp Vault (recommended for production)**
    
    If you have Vault enabled (`vault.enabled: true` in values.yaml):
