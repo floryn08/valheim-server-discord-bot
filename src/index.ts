@@ -3,6 +3,7 @@ import { commands } from "./commands/index";
 import { config } from "./config";
 import { deployCommands } from "./deploy-commands";
 import { KubernetesAdapter } from "./adapters/kubernetes.adapter";
+import { serverAdapter } from "./utils/utils";
 
 // Initialize a new Discord client and log in using the Bot Token.
 const client = new Client({
@@ -16,8 +17,8 @@ const client = new Client({
 client.once(Events.ClientReady, (readyClient) => {
   console.log(`Ready! Logged in as ${readyClient.user.tag}`);
   deployCommands();
-  if (config.runtimeMode === "kubernetes") {
-    new KubernetesAdapter().startAutoStopMonitors(client);
+  if (serverAdapter instanceof KubernetesAdapter) {
+    serverAdapter.startAutoStopMonitors(client);
   }
 });
 

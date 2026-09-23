@@ -30,6 +30,7 @@ export class KubernetesAdapter implements ServerAdapter {
   private readonly namespace: string;
   private readonly appsK8sApi: k8s.AppsV1Api;
   private readonly coreK8sApi: k8s.CoreV1Api;
+  private readonly autoStopChannelIds = new Map<string, string>();
 
   constructor() {
     if (!config.namespace) {
@@ -105,23 +106,22 @@ export class KubernetesAdapter implements ServerAdapter {
     );
   }
 
-  private async sendAutoStopNotification(client: Client, message: string): Promise<void> {
-    let notificationSent = false;
-    for (const guildId of config.guildIds.split(",").map((id) => id.trim()).filter(Boolean)) {
-      try {
-        const guild = await client.guilds.fetch(guildId);
-        if (!guild.systemChannel) {
-          console.warn("Guild " + guildId + " has no system channel for auto-stop notifications.");
-          continue;
-        }
-        await guild.systemChannel.send(message);
-        notificationSent = true;
-      } catch (error: unknown) {
-        console.error("Failed to send auto-stop notification to guild " + guildId + ":", error);
-      }
+  private async sendAutoStopNotification(client: Client, serverId: string, message: string): Promise<void> {
+    const channelId = this.autoStopChannelIds.get(serverId);
+    if (!channelId) {
+      console.warn(`No notification channel is known for ${serverId}; use /start in the channel that should receive auto-stop notifications.`);
+      return;
     }
-    if (!notificationSent) {
-      console.warn("No configured guild system channel accepted the auto-stop notification.");
+
+    try {
+      const channel = await client.channels.fetch(channelId);
+      if (!channel?.isSendable()) {
+        console.warn(`The configured notification channel for ${serverId} is not sendable.`);
+        return;
+      }
+      await channel.send(message);
+    } catch (error: unknown) {
+      console.error(`Failed to send auto-stop notification for ${serverId}:`, error);
     }
   }
 
@@ -174,13 +174,14 @@ export class KubernetesAdapter implements ServerAdapter {
           if (!warningSent && Date.now() - emptySince >= idleTimeoutMillis - warningMillis) {
             await this.sendAutoStopNotification(
               client,
+              server.id,
               "⚠️ " + server.serverName + " has no players and will stop in " + Math.ceil(warningMillis / 60000) + " minutes unless someone joins."
             );
             warningSent = true;
           }
           if (Date.now() - emptySince >= idleTimeoutMillis) {
             await this.scaleResource(server, 0);
-            await this.sendAutoStopNotification(client, "🛑 " + server.serverName + " has been stopped after being empty.");
+            await this.sendAutoStopNotification(client, server.id, "🛑 " + server.serverName + " has been stopped after being empty.");
             emptySince = undefined;
             warningSent = false;
             console.log(`${server.id} server stopped after ${idleTimeoutMillis}ms with zero players.`);
@@ -201,6 +202,7 @@ export class KubernetesAdapter implements ServerAdapter {
 
   async start(interaction: CommandInteraction, serverId: string): Promise<void> {
     const server = this.getServer(serverId);
+    this.autoStopChannelIds.set(server.id, interaction.channelId);
     await interaction.reply(`Starting ${server.id} server...`);
     console.log(`Starting ${server.id} server...`);
 

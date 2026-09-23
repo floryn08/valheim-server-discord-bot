@@ -1,7 +1,7 @@
 import { CommandInteraction } from "discord.js";
 import { createServerAdapter } from "../adapters/adapter.factory";
 
-const serverAdapter = createServerAdapter();
+export const serverAdapter = createServerAdapter();
 
 export const start = async (interaction: CommandInteraction, serverId: string) => {
   await serverAdapter.start(interaction, serverId);
